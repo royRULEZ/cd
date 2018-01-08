@@ -1,0 +1,54 @@
+/*
+*
+* Buttons
+* Author: Roy Peckham
+* Inspired from MaterialDesign
+*
+*/
+
+/*
+
+TODO:
+Need to rethink all of this with Vue-Components in mind - create button component.
+
+*/
+
+// Standards
+button:focus{
+    outline:none
+}
+
+// Basic
+.rp-button{
+    margin:0;
+    padding:0;
+    display:inline-block;
+    position:relative;
+    overflow:hidden;
+    outline:none;
+    background:transparent;
+    border:0;
+    border-radius:0;
+    font-family:inherit;
+    line-height:normal;
+    text-transform:uppercase;
+    text-decoration:none;
+    vertical-align:top;
+    white-space:nowrap;
+    &.header{
+        display: inline;
+        vertical-align: middle;
+        padding:4px 8px;
+        font-size:12px;
+        text-transform: uppercase;
+        font-weight: 600;
+        cursor:pointer;
+        &:hover{
+            //background-color:rgba(255,255,255,0.025);
+            transition:.4s cubic-bezier(.4,0,.2,1);
+        }       
+    }    
+    &.header-icon{
+        cursor:pointer;
+    }
+}

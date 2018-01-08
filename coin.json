@@ -1,0 +1,54 @@
+[
+    {
+    "id": "tron", 
+    "name": "TRON", 
+    "symbol": "TRX", 
+    "rank": "8", 
+    "price_usd": "$0.197", 
+    "price_btc": "0.00001142", 
+    "24h_volume_usd": "3199220000.0", 
+    "market_cap_usd": "12589266651.0", 
+    "available_supply": "65748192475.0", 
+    "total_supply": "100000000000", 
+    "max_supply": null, 
+    "percent_change_1h": "-13.64", 
+    "percent_change_24h": "-27.58", 
+    "percent_change_7d": "449.78", 
+    "last_updated": "1515206954",
+    "reddit":
+        
+            {
+                "score": "1000",
+                "ups": "4000",
+                "comments": "1001",
+                "threads": "10002" 
+            }
+        
+    },
+    {
+    "id": "ROY", 
+    "name": "ROY", 
+    "symbol": "TRX", 
+    "rank": "8", 
+    "price_usd": "$16,500.03", 
+    "price_btc": "0.00001142", 
+    "24h_volume_usd": "3199220000.0", 
+    "market_cap_usd": "12589266651.0", 
+    "available_supply": "65748192475.0", 
+    "total_supply": "100000000000", 
+    "max_supply": null, 
+    "percent_change_1h": "-13.64", 
+    "percent_change_24h": "-27.58", 
+    "percent_change_7d": "449.78", 
+    "last_updated": "1515206954",
+    "reddit":
+        
+            {
+                "score": "1000",
+                "ups": "4000",
+                "comments": "1001",
+                "threads": "10002" 
+            }
+        
+    }    
+]

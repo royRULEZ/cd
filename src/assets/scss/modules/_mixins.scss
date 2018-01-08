@@ -1,0 +1,23 @@
+@mixin standard_size($m-top, $m-bottom, $max_width: $max-width) {
+    width: 92%;
+    max-width: $max_width;
+    margin: $m-top auto $m-bottom auto;
+}
+
+@mixin base_link{
+    color:$color-contrast;
+    text-decoration: underline;
+}
+
+@mixin background-cover{
+  background-position: center;
+  background-size: cover;
+}
+
+.clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

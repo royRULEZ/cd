@@ -1,0 +1,118 @@
+html {
+font-family: sans-serif; // Why not make the default font something a bit nicer than Times?
+-ms-text-size-adjust: 100%;
+-webkit-text-size-adjust: 100%;
+-moz-text-size-adjust: 100%;
+text-size-adjust: 100%; // Text Adjust prevents some mobile browsers from automatically zooming fonts
+}
+
+body {
+margin: 0; // Gets rid of stupid margins applied to the page
+font-size: 16px; // Sets the default font size to something legible
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+display: block; //Correct `block` display not defined for any HTML5 element in IE 8/9/10/11
+}
+
+audio,
+canvas,
+progress,
+video {
+display: inline-block; //Correct `block` display not defined for any HTML5 element in IE 8/9/10/11
+vertical-align: baseline; 
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+blockquote,
+figure,
+ol,
+ul {
+margin: 0; // Make them the same as Div / Span
+padding: 0; // Make them the same as Div / Span
+-webkit-margin-before: 0;
+-webkit-margin-after: 0;
+-webkit-margin-start: 0;
+-webkit-margin-end: 0;
+font-weight: normal;
+}
+
+li {
+display: block; // No more little bullets everywhere. If you need a bullet use the ::before psuedo-element
+}
+
+h1,
+h2,
+h3,
+h4 {
+font-size: inherit; // Override less
+}
+
+a {
+text-decoration: none;
+color: inherit;
+-webkit-transition: .3s;
+-moz-transition: .3s;
+-o-transition: .3s;
+transition: .3s;
+background-color: transparent; // Remove the gray background color from active links in IE 10.
+}
+
+img {
+max-width: 100%; // Won't exceed the maximum width of it's (hopefully) fluid container
+height: auto;
+border: 0; // No more image borders in IE. Silly IE...
+}
+
+table {
+border-collapse: collapse; // Remove most spacing between table cells.
+border-spacing: 0; // Remove most spacing between table cells.
+}
+
+td,
+th {
+padding: 0; // Remove most spacing between table cells.
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+color: inherit; // Correct color not being inherited. Known issue: affects color of disabled elements.
+font: inherit; // Correct font properties not being inherited.
+margin: 0; // Address margins set differently in Firefox 4+, Safari, and Chrome.
+}
+
+button {
+overflow: visible; // Address `overflow` set to `hidden` in IE 8/9/10/11.
+}
+
+textarea {
+resize: vertical; // Allow only vertical resizing of textareas.
+overflow: auto; // Remove default vertical scrollbar in IE 8/9/10/11.
+}
+
+// TODO - Consider using this:
+// *, *:after, *:before {
+// -webkit-box-sizing: border-box;
+// -moz-box-sizing: border-box;
+// box-sizing: border-box;
+// }
+
