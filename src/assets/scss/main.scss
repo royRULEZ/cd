@@ -202,6 +202,26 @@ body{
         width: 100%;
         border-bottom: 1px solid #DDD;
         display: flex;
+        .currency_row-50{
+            padding:25px;
+            width:50%;
+            float:left;
+            box-sizing: border-box;
+            border-right:1px solid #DDD;
+            &:last-child{
+                border-right:none;
+            }
+        } 
+        .currency_row-25{
+            padding:25px;
+            width:25%;
+            float:left;
+            box-sizing: border-box;
+            border-right:1px solid #DDD;
+            &:nth-child(4){
+                border-right:none;
+            }
+        }        
         .currency_row-33{
             padding:25px;
             width:33.3333%;
@@ -218,33 +238,53 @@ body{
         }        
     }    
 }
+// Row 0
+#currency_row-0{
+    #header-1{
+        
+    }
+    #header-2{
+        
+    }
+    #header-3{
+        
+    }
+    #header-4{
+        
+    }    
+}
 // Row 1
 #currency_row-1{
-    #symbol{
-        font-size:72px;
-        line-height: 72px;
-        font-weight: 100;
-    }
-    #name-row{
-        font-size:14px;
-        font-weight: 300i;
-        font-style: italic;
-        padding-top:5px;
-        #name{
-            letter-spacing: 2px;
+    #coin_meta{
+        #symbol{
+            font-size:72px;
+            line-height: 72px;
+            font-weight: 100;
         }
-        img{
-            height:19px;
-            width: auto;
-            vertical-align: bottom;
+        #name-row{
+            font-size:14px;
+            font-weight: 300i;
+            font-style: italic;
+            padding-top:5px;
+            #name{
+                letter-spacing: 2px;
+            }
+            img{
+                height:19px;
+                width: auto;
+                vertical-align: bottom;
+            }
+        }
+        #currency-current_price{
+            color: #4f8a1a;
+            font-weight: 400i;
+        }
+        #currency-current_change_1h{
+            font-weight: 400i;
         }
     }
-    #currency-current_price{
-        color: #4f8a1a;
-        font-weight: 400i;
-    }
-    #currency-current_change_1h{
-        font-weight: 400i;
+    #ad{
+        
     }
 }
 // Row 2
