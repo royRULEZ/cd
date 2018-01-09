@@ -1,12 +1,29 @@
 <template>
     <div id="main-page">
+
+        
+        <div id="trending-container" class="clearfix">
+            <div class="trending-content clearfix">
+                <div class="tc-title">Watch</br>List</div>
+                <div class="watch_list-coin"></div>
+                <div class="watch_list-coin"></div>
+                <div class="watch_list-coin"></div>
+                <div class="watch_list-coin"></div>
+                <div class="watch_list-coin"></div>
+            </div>
+            <div class="trending-ad">
+                <img src="https://s3.envato.com/files/62273611/PNG%20Blue/Banner%20blue%20468x60.png" />
+            </div>
+        </div>
+
+
         <div id="table-container">
 
             <v-card color="white lighten-4" flat>
                 <v-toolbar class='elevation-0' id="toolbar-table">
                 <v-menu :nudge-width="100">
                     <v-toolbar-title slot="activator">
-                        <span>All</span><v-icon>arrow_drop_down</v-icon>
+                        <span>View: <span class="view-filter">All</span></span><v-icon>arrow_drop_down</v-icon>
                     </v-toolbar-title>
                     <v-list>
                     <v-list-tile v-for="item in coinFilter" :key="item" @click="">
@@ -14,40 +31,63 @@
                     </v-list-tile>
                     </v-list>
                 </v-menu>
+                <v-menu :nudge-width="100">
+                    <v-toolbar-title slot="activator">
+                        <span>Highlight: <span class="highlight-filter">None</span></span><v-icon>arrow_drop_down</v-icon>
+                    </v-toolbar-title>
+                    <v-list>
+                    <v-list-tile v-for="item in coinFilter" :key="item" @click="">
+                        <v-list-tile-title v-text="item"></v-list-tile-title>
+                    </v-list-tile>
+                    </v-list>
+                </v-menu>                
                 <v-spacer></v-spacer>
                 <v-btn icon>
                     <v-icon>search</v-icon>
                 </v-btn>
+                <v-btn icon>
+                    <v-icon>filter_list</v-icon>
+                </v-btn>                
                 </v-toolbar>
             </v-card>
 
             <table>
                 <tr>
-                    <th class="rank" @click="sortCoins('rank')">#</th>
                     <th class="left_align">Symbol</th>
-                    <th class="id left_align">ID</th> 
-                    <th class="usd" @click="sortCoins('price_usd')">USD<v-icon>{{icon}}</v-icon></th>
-                    <th>Score</th>
-                    <th>Votes</th>
-                    <th>Comments</th>
-                    <th class="posts">Posts</th>
-                    <th>% 24h</th>
-                    <th>% 1d</th>
-                    <th>% 7d</th>                               
+                    <th class="id left_align">Name</th> <!-- TODO - truncate -->
+                    <th class="usd" @click="sortCoins('price_usd')">$USD<v-icon>{{icon}}</v-icon></th>
+                    <th @click="sortCoins('market_cap_usd')">Market Cap</th>
+                    <th @click="sortCoins('available_supply')">Circulating</th>
+
+                    <th class="social_title">Rddt Score</th>
+                    <th class="social_title">Rddt <v-icon>forum</v-icon></th>
+                    <th class="social_title">Rddt 48hr</th>
+                    <th class="social_title">Twtr <v-icon>forum</v-icon></th>
+                    <th class="social_title">Twtr 24hr</th>
+
+                    <th class="percent_change" @click="sortCoins('percent_change_1h')">Hour</th>
+                    <th class="percent_change" @click="sortCoins('percent_change_24h')">Day </th>
+                    <th class="percent_change" @click="sortCoins('percent_change_7d')">Week</th>                               
                 </tr>
                 <tr v-for="coin in orderedCoins">
-                    <td class="rank">{{coin.rank}}</td>
                     <td class="symbol left_align" v-ripple>
-                        <router-link :to="`/currency/${coin.slug}`">{{coin.symbol}}</router-link></td>
-                    <td class="id left_align">{{coin.slug}}</td> 
-                    <td class="posts" v-ripple>1000</td>
-                    <td class="posts" v-ripple>1000</td>
-                    <td class="posts" v-ripple>1000</td>
-                    <td class="posts" v-ripple>1000</td>
-                    <td class="posts" v-ripple>1000</td>
-                    <td class="change_green">10%</td>
-                    <td class="change_green">100%</td>
-                    <td class="change_green">500%</td>           
+                        <router-link :to="`/currency/${coin.slug}`">{{coin.symbol}}<v-icon>chevron_right</v-icon></router-link></td>
+                    <td class="id left_align">{{coin.id}}</td> 
+
+                    <td class="usd">{{coin.price_usd | Price}}</td>
+                    <td class="cap">{{coin.market_cap_usd | BigNumber}}</td>
+                    <td class="supply">{{coin.available_supply | BigNumber}}</td>
+                    
+                    <td class="r_score">14,400.00</td>
+                    <td class="r_activity">100.00</td>
+                    <td class="r_24hr">100.00</td>
+                    <td class="t_activity">100.00</td>
+                    <td class="t_24hr">100.00</td>
+
+                    <td class="percent_change hour change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_1h)}">{{coin.percent_change_1h}}%</td>
+                    <td class="percent_change change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_24h)}">{{coin.percent_change_24h}}%</td>
+                    <td class="percent_change change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_7d)}">{{coin.percent_change_7d}}%</td> 
+                              
                 </tr>
             </table>
         </div>
@@ -69,7 +109,8 @@ export default {
     },
     methods:{
         makeJSON: function(){
-            this.thisJSON = [{"tokens":["Bitcoin","BTC"],"symbol":"BTC","name":"Bitcoin","rank":1,"slug":"bitcoin"},{"tokens":["Ethereum","ETH"],"symbol":"ETH","name":"Ethereum","rank":2,"slug":"ethereum"},{"tokens":["Ripple","XRP"],"symbol":"XRP","name":"Ripple","rank":3,"slug":"ripple"},{"tokens":["Bitcoin Cash","BCH"],"symbol":"BCH","name":"Bitcoin Cash","rank":4,"slug":"bitcoin-cash"},{"tokens":["Cardano","ADA"],"symbol":"ADA","name":"Cardano","rank":5,"slug":"cardano"},{"tokens":["NEM","XEM"],"symbol":"XEM","name":"NEM","rank":6,"slug":"nem"},{"tokens":["Litecoin","LTC"],"symbol":"LTC","name":"Litecoin","rank":7,"slug":"litecoin"},{"tokens":["Stellar","XLM"],"symbol":"XLM","name":"Stellar","rank":8,"slug":"stellar"},{"tokens":["IOTA","MIOTA"],"symbol":"MIOTA","name":"IOTA","rank":9,"slug":"iota"},{"tokens":["TRON","TRX"],"symbol":"TRX","name":"TRON","rank":10,"slug":"tron"},{"tokens":["Dash","DASH"],"symbol":"DASH","name":"Dash","rank":11,"slug":"dash"},{"tokens":["NEO","NEO"],"symbol":"NEO","name":"NEO","rank":12,"slug":"neo"},{"tokens":["Monero","XMR"],"symbol":"XMR","name":"Monero","rank":13,"slug":"monero"},{"tokens":["EOS","EOS"],"symbol":"EOS","name":"EOS","rank":14,"slug":"eos"},{"tokens":["Qtum","QTUM"],"symbol":"QTUM","name":"Qtum","rank":15,"slug":"qtum"},{"tokens":["ICON","ICX"],"symbol":"ICX","name":"ICON","rank":16,"slug":"icon"},{"tokens":["Bitcoin Gold","BTG"],"symbol":"BTG","name":"Bitcoin Gold","rank":17,"slug":"bitcoin-gold"},{"tokens":["Lisk","LSK"],"symbol":"LSK","name":"Lisk","rank":18,"slug":"lisk"},{"tokens":["RaiBlocks","XRB"],"symbol":"XRB","name":"RaiBlocks","rank":19,"slug":"raiblocks"},{"tokens":["Ethereum Classic","ETC"],"symbol":"ETC","name":"Ethereum Classic","rank":20,"slug":"ethereum-classic"},{"tokens":["Verge","XVG"],"symbol":"XVG","name":"Verge","rank":21,"slug":"verge"},{"tokens":["OmiseGO","OMG"],"symbol":"OMG","name":"OmiseGO","rank":22,"slug":"omisego"},{"tokens":["Siacoin","SC"],"symbol":"SC","name":"Siacoin","rank":23,"slug":"siacoin"},{"tokens":["Bytecoin","BCN"],"symbol":"BCN","name":"Bytecoin","rank":24,"slug":"bytecoin-bcn"},{"tokens":["BitConnect","BCC"],"symbol":"BCC","name":"BitConnect","rank":25,"slug":"bitconnect"},{"tokens":["Populous","PPT"],"symbol":"PPT","name":"Populous","rank":26,"slug":"populous"},{"tokens":["Stratis","STRAT"],"symbol":"STRAT","name":"Stratis","rank":27,"slug":"stratis"},{"tokens":["Zcash","ZEC"],"symbol":"ZEC","name":"Zcash","rank":28,"slug":"zcash"},{"tokens":["BitShares","BTS"],"symbol":"BTS","name":"BitShares","rank":29,"slug":"bitshares"},{"tokens":["Dentacoin","DCN"],"symbol":"DCN","name":"Dentacoin","rank":30,"slug":"dentacoin"},{"tokens":["Dogecoin","DOGE"],"symbol":"DOGE","name":"Dogecoin","rank":31,"slug":"dogecoin"},{"tokens":["Binance Coin","BNB"],"symbol":"BNB","name":"Binance Coin","rank":32,"slug":"binance-coin"},{"tokens":["Status","SNT"],"symbol":"SNT","name":"Status","rank":33,"slug":"status"},{"tokens":["Ardor","ARDR"],"symbol":"ARDR","name":"Ardor","rank":34,"slug":"ardor"},{"tokens":["KuCoin Shares","KCS"],"symbol":"KCS","name":"KuCoin Shares","rank":35,"slug":"kucoin-shares"},{"tokens":["Steem","STEEM"],"symbol":"STEEM","name":"Steem","rank":36,"slug":"steem"},{"tokens":["Tether","USDT"],"symbol":"USDT","name":"Tether","rank":37,"slug":"tether"},{"tokens":["Waves","WAVES"],"symbol":"WAVES","name":"Waves","rank":38,"slug":"waves"},{"tokens":["VeChain","VEN"],"symbol":"VEN","name":"VeChain","rank":39,"slug":"vechain"},{"tokens":["DigiByte","DGB"],"symbol":"DGB","name":"DigiByte","rank":40,"slug":"digibyte"},{"tokens":["Komodo","KMD"],"symbol":"KMD","name":"Komodo","rank":41,"slug":"komodo"},{"tokens":["Dragonchain","DRGN"],"symbol":"DRGN","name":"Dragonchain","rank":42,"slug":"dragonchain"},{"tokens":["Golem","GNT"],"symbol":"GNT","name":"Golem","rank":43,"slug":"golem-network-tokens"},{"tokens":["Augur","REP"],"symbol":"REP","name":"Augur","rank":44,"slug":"augur"},{"tokens":["Hshare","HSR"],"symbol":"HSR","name":"Hshare","rank":45,"slug":"hshare"},{"tokens":["Veritaseum","VERI"],"symbol":"VERI","name":"Veritaseum","rank":46,"slug":"veritaseum"},{"tokens":["Electroneum","ETN"],"symbol":"ETN","name":"Electroneum","rank":47,"slug":"electroneum"},{"tokens":["Kin","KIN"],"symbol":"KIN","name":"Kin","rank":48,"slug":"kin"},{"tokens":["Ark","ARK"],"symbol":"ARK","name":"Ark","rank":49,"slug":"ark"},{"tokens":["Nexus","NXS"],"symbol":"NXS","name":"Nexus","rank":50,"slug":"nexus"},{"tokens":["ReddCoin","RDD"],"symbol":"RDD","name":"ReddCoin","rank":51,"slug":"reddcoin"},{"tokens":["Ethos","ETHOS"],"symbol":"ETHOS","name":"Ethos","rank":52,"slug":"ethos"},{"tokens":["Dent","DENT"],"symbol":"DENT","name":"Dent","rank":53,"slug":"dent"},{"tokens":["Basic Attention Token","BAT"],"symbol":"BAT","name":"Basic Attention Token","rank":54,"slug":"basic-attention-token"},{"tokens":["Decred","DCR"],"symbol":"DCR","name":"Decred","rank":55,"slug":"decred"},{"tokens":["PIVX","PIVX"],"symbol":"PIVX","name":"PIVX","rank":56,"slug":"pivx"},{"tokens":["Experience Points","XP"],"symbol":"XP","name":"Experience Points","rank":57,"slug":"experience-points"},{"tokens":["SALT","SALT"],"symbol":"SALT","name":"SALT","rank":58,"slug":"salt"},{"tokens":["0x","ZRX"],"symbol":"ZRX","name":"0x","rank":59,"slug":"0x"},{"tokens":["FunFair","FUN"],"symbol":"FUN","name":"FunFair","rank":60,"slug":"funfair"},{"tokens":["Factom","FCT"],"symbol":"FCT","name":"Factom","rank":61,"slug":"factom"},{"tokens":["QASH","QASH"],"symbol":"QASH","name":"QASH","rank":62,"slug":"qash"},{"tokens":["Kyber Network","KNC"],"symbol":"KNC","name":"Kyber Network","rank":63,"slug":"kyber-network"},{"tokens":["Aion","AION"],"symbol":"AION","name":"Aion","rank":64,"slug":"aion"},{"tokens":["Power Ledger","POWR"],"symbol":"POWR","name":"Power Ledger","rank":65,"slug":"power-ledger"},{"tokens":["WAX","WAX"],"symbol":"WAX","name":"WAX","rank":66,"slug":"wax"},{"tokens":["Request Network","REQ"],"symbol":"REQ","name":"Request Network","rank":67,"slug":"request-network"},{"tokens":["Bytom","BTM"],"symbol":"BTM","name":"Bytom","rank":68,"slug":"bytom"},{"tokens":["aelf","ELF"],"symbol":"ELF","name":"aelf","rank":69,"slug":"aelf"},{"tokens":["Aeternity","AE"],"symbol":"AE","name":"Aeternity","rank":70,"slug":"aeternity"},{"tokens":["Substratum","SUB"],"symbol":"SUB","name":"Substratum","rank":71,"slug":"substratum"},{"tokens":["Nxt","NXT"],"symbol":"NXT","name":"Nxt","rank":72,"slug":"nxt"},{"tokens":["DigitalNote","XDN"],"symbol":"XDN","name":"DigitalNote","rank":73,"slug":"digitalnote"},{"tokens":["Enigma","ENG"],"symbol":"ENG","name":"Enigma","rank":74,"slug":"enigma-project"},{"tokens":["Byteball Bytes","GBYTE"],"symbol":"GBYTE","name":"Byteball Bytes","rank":75,"slug":"byteball"},{"tokens":["MaidSafeCoin","MAID"],"symbol":"MAID","name":"MaidSafeCoin","rank":76,"slug":"maidsafecoin"},{"tokens":["Gas","GAS"],"symbol":"GAS","name":"Gas","rank":77,"slug":"gas"},{"tokens":["RChain","RHOC"],"symbol":"RHOC","name":"RChain","rank":78,"slug":"rchain"},{"tokens":["Syscoin","SYS"],"symbol":"SYS","name":"Syscoin","rank":79,"slug":"syscoin"},{"tokens":["MonaCoin","MONA"],"symbol":"MONA","name":"MonaCoin","rank":80,"slug":"monacoin"},{"tokens":["Santiment Network Token","SAN"],"symbol":"SAN","name":"Santiment Network Token","rank":81,"slug":"santiment"},{"tokens":["Iconomi","ICN"],"symbol":"ICN","name":"Iconomi","rank":82,"slug":"iconomi"},{"tokens":["BitcoinDark","BTCD"],"symbol":"BTCD","name":"BitcoinDark","rank":83,"slug":"bitcoindark"},{"tokens":["Quantstamp","QSP"],"symbol":"QSP","name":"Quantstamp","rank":84,"slug":"quantstamp"},{"tokens":["ChainLink","LINK"],"symbol":"LINK","name":"ChainLink","rank":85,"slug":"chainlink"},{"tokens":["ZCoin","XZC"],"symbol":"XZC","name":"ZCoin","rank":86,"slug":"zcoin"},{"tokens":["Time New Bank","TNB"],"symbol":"TNB","name":"Time New Bank","rank":87,"slug":"time-new-bank"},{"tokens":["Po.et","POE"],"symbol":"POE","name":"Po.et","rank":88,"slug":"poet"},{"tokens":["DigixDAO","DGD"],"symbol":"DGD","name":"DigixDAO","rank":89,"slug":"digixdao"},{"tokens":["TenX","PAY"],"symbol":"PAY","name":"TenX","rank":90,"slug":"tenx"},{"tokens":["PACcoin","PAC"],"symbol":"PAC","name":"PACcoin","rank":91,"slug":"paccoin"},{"tokens":["Neblio","NEBL"],"symbol":"NEBL","name":"Neblio","rank":92,"slug":"neblio"},{"tokens":["Walton","WTC"],"symbol":"WTC","name":"Walton","rank":93,"slug":"walton"},{"tokens":["Gnosis","GNO"],"symbol":"GNO","name":"Gnosis","rank":94,"slug":"gnosis-gno"},{"tokens":["Civic","CVC"],"symbol":"CVC","name":"Civic","rank":95,"slug":"civic"},{"tokens":["ETHLend","LEND"],"symbol":"LEND","name":"ETHLend","rank":96,"slug":"ethlend"},{"tokens":["Raiden Network Token","RDN"],"symbol":"RDN","name":"Raiden Network Token","rank":97,"slug":"raiden-network-token"},{"tokens":["Bancor","BNT"],"symbol":"BNT","name":"Bancor","rank":98,"slug":"bancor"},{"tokens":["DeepBrain Chain","DBC"],"symbol":"DBC","name":"DeepBrain Chain","rank":99,"slug":"deepbrain-chain"},{"tokens":["ZClassic","ZCL"],"symbol":"ZCL","name":"ZClassic","rank":100,"slug":"zclassic"}];
+            //Axios call
+            this.thisJSON = [{"id":"bitcoin","name":"Bitcoin","symbol":"BTC","rank":"1","price_usd":"15484.0","price_btc":"1.0","24h_volume_usd":"18669800000.0","market_cap_usd":"259991456900","available_supply":"16790975.0","total_supply":"16790975.0","max_supply":"21000000.0","percent_change_1h":"0.45","percent_change_24h":"-3.26","percent_change_7d":"13.34","last_updated":"1515473661"},{"id":"ethereum","name":"Ethereum","symbol":"ETH","rank":"2","price_usd":"1221.62","price_btc":"0.0794028","24h_volume_usd":"8077810000.0","market_cap_usd":"118329107618","available_supply":"96862451.0","total_supply":"96862451.0","max_supply":null,"percent_change_1h":"1.0","percent_change_24h":"-1.39","percent_change_7d":"42.81","last_updated":"1515473650"},{"id":"ripple","name":"Ripple","symbol":"XRP","rank":"3","price_usd":"2.43555","price_btc":"0.0001583","24h_volume_usd":"3360330000.0","market_cap_usd":"94351124232.0","available_supply":"38739144847.0","total_supply":"99993093880.0","max_supply":"100000000000","percent_change_1h":"-0.88","percent_change_24h":"-16.64","percent_change_7d":"5.88","last_updated":"1515473641"},{"id":"bitcoin-cash","name":"Bitcoin Cash","symbol":"BCH","rank":"4","price_usd":"2465.43","price_btc":"0.160247","24h_volume_usd":"1399660000.0","market_cap_usd":"41668756334.0","available_supply":"16901213.0","total_supply":"16901213.0","max_supply":"21000000.0","percent_change_1h":"1.79","percent_change_24h":"-6.63","percent_change_7d":"-0.49","last_updated":"1515473653"},{"id":"cardano","name":"Cardano","symbol":"ADA","rank":"5","price_usd":"0.898633","price_btc":"0.00005841","24h_volume_usd":"253222000.0","market_cap_usd":"23298921179.0","available_supply":"25927070538.0","total_supply":"31112483745.0","max_supply":"45000000000.0","percent_change_1h":"-1.52","percent_change_24h":"-6.21","percent_change_7d":"23.22","last_updated":"1515473655"},{"id":"nem","name":"NEM","symbol":"XEM","rank":"6","price_usd":"1.69089","price_btc":"0.0001099","24h_volume_usd":"85993900.0","market_cap_usd":"15218009998.0","available_supply":"8999999999.0","total_supply":"8999999999.0","max_supply":null,"percent_change_1h":"-0.64","percent_change_24h":"-2.11","percent_change_7d":"57.01","last_updated":"1515473644"},{"id":"litecoin","name":"Litecoin","symbol":"LTC","rank":"7","price_usd":"257.085","price_btc":"0.0167099","24h_volume_usd":"1127010000.0","market_cap_usd":"14056362275.0","available_supply":"54675933.0","total_supply":"54675933.0","max_supply":"84000000.0","percent_change_1h":"0.4","percent_change_24h":"-5.91","percent_change_7d":"5.64","last_updated":"1515473641"},{"id":"stellar","name":"Stellar","symbol":"XLM","rank":"8","price_usd":"0.638821","price_btc":"0.00004152","24h_volume_usd":"250810000.0","market_cap_usd":"11422181882.0","available_supply":"17880097683.0","total_supply":"103590302054","max_supply":null,"percent_change_1h":"-0.58","percent_change_24h":"-5.3","percent_change_7d":"28.35","last_updated":"1515473643"},{"id":"iota","name":"IOTA","symbol":"MIOTA","rank":"9","price_usd":"3.90939","price_btc":"0.0002541","24h_volume_usd":"301116000.0","market_cap_usd":"10866267893.0","available_supply":"2779530283.0","total_supply":"2779530283.0","max_supply":"2779530283.0","percent_change_1h":"0.94","percent_change_24h":"-3.59","percent_change_7d":"-2.78","last_updated":"1515473651"},{"id":"tron","name":"TRON","symbol":"TRX","rank":"10","price_usd":"0.151123","price_btc":"0.00000982","24h_volume_usd":"1391610000.0","market_cap_usd":"9936064091.0","available_supply":"65748192475.0","total_supply":"100000000000","max_supply":null,"percent_change_1h":"2.14","percent_change_24h":"-12.69","percent_change_7d":"166.66","last_updated":"1515473654"},{"id":"dash","name":"Dash","symbol":"DASH","rank":"11","price_usd":"1124.73","price_btc":"0.0731046","24h_volume_usd":"218169000.0","market_cap_usd":"8780735679.0","available_supply":"7806972.0","total_supply":"7806972.0","max_supply":"18900000.0","percent_change_1h":"0.9","percent_change_24h":"-7.97","percent_change_7d":"1.32","last_updated":"1515473642"},{"id":"neo","name":"NEO","symbol":"NEO","rank":"12","price_usd":"118.947","price_btc":"0.0077313","24h_volume_usd":"319218000.0","market_cap_usd":"7731555000.0","available_supply":"65000000.0","total_supply":"100000000.0","max_supply":null,"percent_change_1h":"2.59","percent_change_24h":"18.46","percent_change_7d":"41.03","last_updated":"1515473648"},{"id":"monero","name":"Monero","symbol":"XMR","rank":"13","price_usd":"441.937","price_btc":"0.0287248","24h_volume_usd":"345926000.0","market_cap_usd":"6885310341.0","available_supply":"15579846.0","total_supply":"15579846.0","max_supply":null,"percent_change_1h":"2.27","percent_change_24h":"4.27","percent_change_7d":"18.21","last_updated":"1515473642"},{"id":"eos","name":"EOS","symbol":"EOS","rank":"14","price_usd":"9.57874","price_btc":"0.0006226","24h_volume_usd":"677145000.0","market_cap_usd":"5661396986.0","available_supply":"591037755.0","total_supply":"900000000.0","max_supply":"1000000000.0","percent_change_1h":"-0.18","percent_change_24h":"-11.3","percent_change_7d":"2.48","last_updated":"1515473652"},{"id":"icon","name":"ICON","symbol":"ICX","rank":"15","price_usd":"11.9359","price_btc":"0.0007758","24h_volume_usd":"263376000.0","market_cap_usd":"4518275325.0","available_supply":"378545005.0","total_supply":"400230000.0","max_supply":null,"percent_change_1h":"-1.9","percent_change_24h":"9.81","percent_change_7d":"86.14","last_updated":"1515473656"},{"id":"qtum","name":"Qtum","symbol":"QTUM","rank":"16","price_usd":"57.5505","price_btc":"0.00374065","24h_volume_usd":"1044670000.0","market_cap_usd":"4246883899.0","available_supply":"73794040.0","total_supply":"100294040.0","max_supply":null,"percent_change_1h":"0.36","percent_change_24h":"-17.17","percent_change_7d":"-6.27","last_updated":"1515473652"},{"id":"bitcoin-gold","name":"Bitcoin Gold","symbol":"BTG","rank":"17","price_usd":"247.888","price_btc":"0.0161121","24h_volume_usd":"163889000.0","market_cap_usd":"4153019146.0","available_supply":"16753611.0","total_supply":"16853611.0","max_supply":"21000000.0","percent_change_1h":"0.47","percent_change_24h":"-7.22","percent_change_7d":"-10.61","last_updated":"1515473656"},{"id":"lisk","name":"Lisk","symbol":"LSK","rank":"18","price_usd":"31.5686","price_btc":"0.00205189","24h_volume_usd":"126212000.0","market_cap_usd":"3687426263.0","available_supply":"116806772.0","total_supply":"116806772.0","max_supply":null,"percent_change_1h":"0.97","percent_change_24h":"1.01","percent_change_7d":"46.94","last_updated":"1515473646"},{"id":"raiblocks","name":"RaiBlocks","symbol":"XRB","rank":"19","price_usd":"26.3237","price_btc":"0.00171098","24h_volume_usd":"41096400.0","market_cap_usd":"3507587991.0","available_supply":"133248289.0","total_supply":"133248289.0","max_supply":"133248290.0","percent_change_1h":"0.53","percent_change_24h":"1.59","percent_change_7d":"-20.54","last_updated":"1515473650"},{"id":"ethereum-classic","name":"Ethereum Classic","symbol":"ETC","rank":"20","price_usd":"34.2562","price_btc":"0.00222657","24h_volume_usd":"709199000.0","market_cap_usd":"3390746195.0","available_supply":"98981971.0","total_supply":"98981971.0","max_supply":null,"percent_change_1h":"-0.6","percent_change_24h":"-14.76","percent_change_7d":"-3.01","last_updated":"1515473647"},{"id":"verge","name":"Verge","symbol":"XVG","rank":"21","price_usd":"0.226005","price_btc":"0.00001469","24h_volume_usd":"899793000.0","market_cap_usd":"3280878382.0","available_supply":"14516839811.0","total_supply":"14516839811.0","max_supply":"16555000000.0","percent_change_1h":"-0.66","percent_change_24h":"30.67","percent_change_7d":"45.23","last_updated":"1515473643"},{"id":"siacoin","name":"Siacoin","symbol":"SC","rank":"22","price_usd":"0.0842649","price_btc":"0.00000548","24h_volume_usd":"173740000.0","market_cap_usd":"2645593118.0","available_supply":"31396146174.0","total_supply":"31396146174.0","max_supply":null,"percent_change_1h":"1.74","percent_change_24h":"-2.64","percent_change_7d":"175.75","last_updated":"1515473645"},{"id":"omisego","name":"OmiseGO","symbol":"OMG","rank":"23","price_usd":"25.3991","price_btc":"0.00165088","24h_volume_usd":"301973000.0","market_cap_usd":"2591788976.0","available_supply":"102042552.0","total_supply":"140245398.0","max_supply":null,"percent_change_1h":"1.2","percent_change_24h":"-4.57","percent_change_7d":"30.27","last_updated":"1515473653"},{"id":"bytecoin-bcn","name":"Bytecoin","symbol":"BCN","rank":"24","price_usd":"0.0129853","price_btc":"0.00000084","24h_volume_usd":"23402000.0","market_cap_usd":"2379602123.0","available_supply":"183253534612","total_supply":"183253534612","max_supply":"184470000000","percent_change_1h":"0.44","percent_change_24h":"-7.39","percent_change_7d":"116.13","last_updated":"1515473643"},{"id":"bitconnect","name":"BitConnect","symbol":"BCC","rank":"25","price_usd":"365.658","price_btc":"0.0237669","24h_volume_usd":"18131900.0","market_cap_usd":"2259206958.0","available_supply":"6178470.0","total_supply":"9456813.0","max_supply":"28000000.0","percent_change_1h":"-0.5","percent_change_24h":"-2.42","percent_change_7d":"-5.09","last_updated":"1515473649"}];
         },
         numLessThanZero : function(num){
             return parseFloat(num) < 0;
@@ -101,29 +142,38 @@ export default {
         },
         Commas(value){
             return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
+        Price(value){
+            return formatter.format(value);
+        },
+        BigNumber(value){
+            var value_ = formatter.format(value / 1000000);
+            return value_.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "M";                       
         }
     }
 }
-    
-    /*
-    
-                        <td class="rank">{{coin.rank}}</td>
-                    <td class="symbol left_align" v-ripple>
-                        <router-link :to="`/currency/${coin.id}`">{{coin.symbol}}</router-link></td>
-                    <td class="id left_align">{{coin.id}}</td> 
-                    <td class="usd">{{coin.price_usd}}</td>
-                    <td>{{coin.reddit.score | Commas}}</td>
-                    <td>{{coin.reddit.ups | Commas}}</td>
-                    <td>{{coin.reddit.comments | Commas}}</td>
-                    <td class="posts" v-ripple>{{coin.reddit.threads | Commas}}</td>
-                    <td class="change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_1h)}">{{coin.percent_change_1h}}%</td>
-                    <td class="change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_24h)}">{{coin.percent_change_24h}}%</td>
-                    <td class="change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_7d)}">{{coin.percent_change_7d}}%</td> 
-                    
-                                this.thisJSON = [{"id":"tron","name":"TRON","symbol":"TRX","rank":"2","price_usd":"0.197","price_btc":"0.00001142","24h_volume_usd":"3199220000.0","market_cap_usd":"12589266651.0","available_supply":"65748192475.0","total_supply":"100000000000","max_supply":null,"percent_change_1h":"-13.64","percent_change_24h":"-27.58","percent_change_7d":"449.78","last_updated":"1515206954","reddit":{"score":"1000","ups":"4000","comments":"1001","threads":"10002"}},{"id":"ROY","name":"ROY","symbol":"TRX","rank":"8","price_usd":"16500.03","price_btc":"0.00001142","24h_volume_usd":"3199220000.0","market_cap_usd":"12589266651.0","available_supply":"65748192475.0","total_supply":"100000000000","max_supply":null,"percent_change_1h":"-13.64","percent_change_24h":"-27.58","percent_change_7d":"449.78","last_updated":"1515206954","reddit":{"score":"1000","ups":"4000","comments":"1001","threads":"10002"}},{"id":"tron","name":"TRON","symbol":"TRX","rank":"8","price_usd":"0197","price_btc":"0.00001142","24h_volume_usd":"3199220000.0","market_cap_usd":"12589266651.0","available_supply":"65748192475.0","total_supply":"100000000000","max_supply":null,"percent_change_1h":"-13.64","percent_change_24h":"-27.58","percent_change_7d":"449.78","last_updated":"1515206954","reddit":{"score":"1000","ups":"4000","comments":"1001","threads":"10002"}},{"id":"ROY","name":"ROY","symbol":"TRX","rank":"5","price_usd":"16500.03","price_btc":"0.00001142","24h_volume_usd":"3199220000.0","market_cap_usd":"12589266651.0","available_supply":"65748192475.0","total_supply":"100000000000","max_supply":null,"percent_change_1h":"-13.64","percent_change_24h":"-27.58","percent_change_7d":"449.78","last_updated":"1515206954","reddit":{"score":"1000","ups":"4000","comments":"1001","threads":"10002"}}];
-                                
-                                
-                    */
+
+var formatter = new Intl.NumberFormat('en-US', {
+  //style: 'currency',
+  //currency: 'USD',
+  minimumFractionDigits: 2
+
+});
+
+/*
+<td class="rank">{{coin.rank}}</td>
+<td class="symbol left_align" v-ripple>
+<router-link :to="`/currency/${coin.id}`">{{coin.symbol}}</router-link></td>
+<td class="id left_align">{{coin.id}}</td> 
+<td class="usd">{{coin.price_usd}}</td>
+<td>{{coin.reddit.score | Commas}}</td>
+<td>{{coin.reddit.ups | Commas}}</td>
+<td>{{coin.reddit.comments | Commas}}</td>
+<td class="posts" v-ripple>{{coin.reddit.threads | Commas}}</td>
+<td class="change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_1h)}">{{coin.percent_change_1h}}%</td>
+<td class="change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_24h)}">{{coin.percent_change_24h}}%</td>
+<td class="change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_7d)}">{{coin.percent_change_7d}}%</td>              
+*/
 
 </script>
 

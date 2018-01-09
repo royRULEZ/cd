@@ -17,13 +17,10 @@
     <v-toolbar id="toolbar" dark class='elevation-0'>
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-toolbar-title>Crypto Chatter</v-toolbar-title>
+      <v-toolbar-title>Crypto Dragnet</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>search</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>refresh</v-icon>
       </v-btn>
     </v-toolbar>
 
