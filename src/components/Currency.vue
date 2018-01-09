@@ -1,16 +1,30 @@
 <template>
   <div>
     <div id="currency_container">
+
+        
         <div class="currency_row" id="currency_row-1">
-            <div id="symbol">
-                {{coin_basic[0].symbol}}
-                <span id="currency-current_price">{{coin_basic[0].price_usd | Price}}</span>
+            <div id="coin_meta" class="curreny_row-50">
+                <div id="symbol">
+                    {{coin_basic[0].symbol}}
+                    <span id="currency-current_price">{{coin_basic[0].price_usd | Price}}</span>
+                </div>
+                <div id="name-row" >
+                    <img src='https://www.stellar.org/wp-content/themes/stellar/images/stellar-rocket-300.png'/>
+                    <span id="name">{{coin_basic[0].id}}</span>
+                    <span id="currency-current_change_1h" class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">({{coin_basic[0].percent_change_1h}}%)</span>
+                </div>
             </div>
-            <div id="name-row" >
-                <img src='https://www.stellar.org/wp-content/themes/stellar/images/stellar-rocket-300.png'/>
-                <span id="name">{{coin_basic[0].id}}</span>
-                <span id="currency-current_change_1h" class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">({{coin_basic[0].percent_change_1h}}%)</span>
+            <div id="ad" class="curreny_row-50">
+                Ad
             </div>
+        </div>
+        
+        <div class="currency_row-children clearfix"  id="currency_row-0">
+            <div class="currency_row-25" id="header-1">Day Chart</div>
+            <div class="currency_row-25" id="header-2">2</div>
+            <div class="currency_row-25" id="header-3">3</div>
+            <div class="currency_row-25" id="header-4">CTA / Donate</div>
         </div>
 
         <div class="currency_row-children clearfix" id="currency_row-2">
