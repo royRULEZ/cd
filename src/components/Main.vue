@@ -4,7 +4,7 @@
         
         <div id="trending-container" class="clearfix">
             <div class="trending-content clearfix">
-                <div class="tc-title">Watch</br>List</div>
+                <div class="tc-title">Watch<br />List</div>
                 <div class="watch_list-coin"></div>
                 <div class="watch_list-coin"></div>
                 <div class="watch_list-coin"></div>
@@ -147,8 +147,8 @@ export default {
             return formatter.format(value);
         },
         BigNumber(value){
-            var value_ = formatter.format(value / 1000000);
-            return value_.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "M";                       
+            var value_ = Math.trunc(value / 1000000);
+            return value_.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "M";
         }
     }
 }
@@ -160,20 +160,6 @@ var formatter = new Intl.NumberFormat('en-US', {
 
 });
 
-/*
-<td class="rank">{{coin.rank}}</td>
-<td class="symbol left_align" v-ripple>
-<router-link :to="`/currency/${coin.id}`">{{coin.symbol}}</router-link></td>
-<td class="id left_align">{{coin.id}}</td> 
-<td class="usd">{{coin.price_usd}}</td>
-<td>{{coin.reddit.score | Commas}}</td>
-<td>{{coin.reddit.ups | Commas}}</td>
-<td>{{coin.reddit.comments | Commas}}</td>
-<td class="posts" v-ripple>{{coin.reddit.threads | Commas}}</td>
-<td class="change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_1h)}">{{coin.percent_change_1h}}%</td>
-<td class="change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_24h)}">{{coin.percent_change_24h}}%</td>
-<td class="change_green" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_7d)}">{{coin.percent_change_7d}}%</td>              
-*/
 
 </script>
 
