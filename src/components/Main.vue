@@ -114,7 +114,13 @@ export default {
             axios.get("http://localhost:8005/table-data").then(response => {this.thisJSON = response.data})
         },
         getWatchList: function(){
-            axios.get("http://localhost:8005/watch-list").then(response => {this.watchList = response.data})
+            axios.get("http://localhost:8005/watch-list")
+            .then(response => {
+
+                this.watchList = response.data;
+
+                // Put the code here to build arrays and stuff
+            })
         },        
         numLessThanZero : function(num){
             return parseFloat(num) < 0;

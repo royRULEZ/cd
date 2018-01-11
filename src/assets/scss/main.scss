@@ -342,6 +342,7 @@ body{
         border-bottom: 1px solid $color-border;
         display: flex;
         .currency_row-50{
+            
             padding:25px;
             width:50%;
             float:left;
@@ -352,10 +353,10 @@ body{
             }
         } 
         .currency_row-25{
-            padding:25px;
+            box-sizing: border-box;
+            padding:10px;
             width:25%;
             float:left;
-            box-sizing: border-box;
             border-right:1px solid $color-border;
             &:nth-child(4){
                 border-right:none;
@@ -379,6 +380,12 @@ body{
 }
 // Row 0
 #currency_row-0{
+    .r0-title{
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        text-align: center;
+    }
     #header-1{
         
     }
@@ -387,6 +394,12 @@ body{
     }
     #header-3{
         
+        
+        canvas{
+            padding-top:25px;
+            height:125px;
+            width:100% !important;
+        }
     }
     #header-4{
         
@@ -395,6 +408,7 @@ body{
 // Row 1
 #currency_row-1{
     #coin_meta{
+        border: 0;
         #symbol{
             font-size:72px;
             line-height: 72px;
@@ -423,7 +437,7 @@ body{
         }
     }
     #ad{
-        
+        display:none;
     }
 }
 // Row 2
@@ -534,7 +548,7 @@ body{
 }
 // Row 3
 #currency_row-3{
-    margin-top:50px;
+    
     .currency_row-3-title{
         font-size: 18px;
         font-weight: 700;
