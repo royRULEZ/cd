@@ -111,10 +111,10 @@ export default {
     },
     methods:{
         getTableData: function(){
-            axios.get("http://localhost:8005/table-data").then(response => {this.thisJSON = response.data})
+            axios.get("http://52.15.54.43:8005/table-data").then(response => {this.thisJSON = response.data})
         },
         getWatchList: function(){
-            axios.get("http://localhost:8005/watch-list")
+            axios.get("http://52.15.54.43:8005/watch-list")
             .then(response => {
 
                 this.watchList = response.data;

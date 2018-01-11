@@ -216,7 +216,9 @@ export default {
         }, 
         getGoogleTrends: function (){
             
-            axios.get("http://localhost:8005/google-trends/" + this.$route.params.currency)
+            
+            //axios.get("http://localhost:8005/google-trends/" + this.$route.params.currency)
+            axios.get("http://52.15.54.43:8005/google-trends/" + this.$route.params.currency)
             .then(response => {
                 //console.log(response);
                 var google_data = response.data.default.timelineData;
