@@ -135,6 +135,36 @@ body{
             &:nth-child(2){
                 border-left:0;
             }
+            .wlc-title{
+                height: 35px;
+                text-align: center;
+                font-size: 18px;
+                padding-top:10px;
+                box-sizing: border-box;
+                a{
+                    color: $color-links;
+                    text-decoration: underline;
+                }
+            }
+            .wlc-change{
+                height: 23px;
+                width:90%;
+                margin: 0 auto;                
+                div{
+                    width:50%;
+                    float:left;
+                    font-size: 10px;
+                    line-height: 23px;
+                    text-align: center;
+                    &.change_green{
+                        color: green;
+                    }                    
+                    &.change_red{
+                        color:#F00 !important;
+                    } 
+                }
+
+            }
         }
     }    
     .trending-ad{
@@ -282,6 +312,9 @@ body{
                 &.change_red{
                     color:#F00 !important;
                 } 
+                &.bg_red{
+                    background-color: rgba(255,0,0,.1);
+                }
                          
             }
         }
