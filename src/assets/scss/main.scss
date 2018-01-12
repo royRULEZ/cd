@@ -16,6 +16,8 @@
 @import "modules/buttons";
 //@import "modules/navigation";
 
+@import "components/design";
+
 @import "variables";
 
 
@@ -120,11 +122,17 @@ body{
             box-sizing: border-box;
             height:58px;
             float: left;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
             line-height: normal;
             text-align: center;
+            i{
+                color:#888!important;
+                font-size: 38px;
+                line-height: 38px;
+            }
+            div{
+                text-transform: uppercase;
+                font-size: 10px;
+            }
         }
         .watch_list-coin{
             border-left:1px solid $color-border;    
@@ -145,14 +153,16 @@ body{
                     color: $color-links;
                     text-decoration: underline;
                 }
+                i{
+
+                }
             }
             .wlc-change{
                 height: 23px;
                 width:90%;
                 margin: 0 auto;                
                 div{
-                    width:50%;
-                    float:left;
+                    width:100%;
                     font-size: 10px;
                     line-height: 23px;
                     text-align: center;
@@ -171,9 +181,7 @@ body{
         float:left;
         width: 34%;
         height: 60px;
-        img{
-            float:right;
-        }
+        
     }
 }
 
@@ -387,9 +395,7 @@ body{
         text-align: center;
     }
     #header-1{
-        
-    }
-    #header-2{
+        width:50%;
         
     }
     #header-3{
@@ -397,12 +403,12 @@ body{
         
         canvas{
             padding-top:25px;
-            height:125px;
-            width:100% !important;
+            height:125px!important;
+            width:100%!important;
         }
     }
     #header-4{
-        
+        border-right:0;
     }    
 }
 // Row 1

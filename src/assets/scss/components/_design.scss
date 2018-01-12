@@ -1,0 +1,64 @@
+@import "../variables";
+
+#design-container{
+    font-family: $RobotoM;
+    @include standard_size(20px, 20px, $max_width: 1400px); 
+    vertical-align: bottom;
+    box-sizing: border-box;
+}
+.design-title{
+    font-size:32px;
+    padding:25px 0 10px 0;
+    color:#999;
+    font-weight: 100;
+}
+#colors{
+    .color{
+        width:100px;
+        height:100px;
+        float: left;
+        &.color-1{
+            background-color: #39b693;
+        }
+        &.color-2{
+            background-color:#102F41;
+        }
+        &.color-3{
+            background-color:#222;
+        }
+        &.color-4{
+            background-color:#222;
+        }
+        &.color-5{
+            background-color:#222;
+        }
+    }
+}
+#fonts{
+    div{
+        padding:5px;
+        a{
+            color: #1a0dab;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        h2{
+            text-transform: uppercase;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+}
+
+/*
+$color-font: #000;
+$color-header: #FFF;
+$color-background: #f2f2f2;
+
+$color-links: #1a0dab;
+$color-border: #DDD;
+
+$color-white: #FFF;
+$color-black: #000;
+$color-text-lightgrey: #777;
+*/

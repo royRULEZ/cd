@@ -4,17 +4,17 @@
         
         <div id="trending-container" class="clearfix">
             <div class="trending-content clearfix">
-                <div class="tc-title">Watch<br />List</div>
+                <div class="tc-title"><v-icon>whatshot</v-icon><div>Watch List</div></div>
                 <div class="watch_list-coin" v-for="coin_wl in watchList">
-                    <div class="wlc-title"><router-link :to="`/currency/${coin_wl.coin_id}`">{{coin_wl.symbol}}<v-icon>chevron_right</v-icon></router-link></div>
-                    <div class="wlc-change clearfix"> 
-                        <div class="change_green" v-bind:class="{'change_red':numLessThanZero(coin_wl.day)}">{{coin_wl.day}}%(D)</div>
-                        <div class="change_green" v-bind:class="{'change_red':numLessThanZero(coin_wl.week)}">{{coin_wl.week}}%(W)</div>		
+                    <div class="wlc-title"><router-link :to="`/currency/${coin_wl.coin_id}`">{{coin_wl.symbol}}</router-link></div>
+                    <div class="wlc-change"> 
+                        <div class="change_green" v-bind:class="{'change_red':numLessThanZero(coin_wl.day)}">{{coin_wl.day}}%(Day)</div>
+                        
                     </div>
                 </div>
             </div>
             <div class="trending-ad">
-                <img src="https://s3.envato.com/files/62273611/PNG%20Blue/Banner%20blue%20468x60.png" />
+                1PnRmqgMeCFNuMkYyPV18f5Xn7kVRRhTkg
             </div>
         </div>
 
@@ -73,7 +73,7 @@
                 </tr>
                 <tr v-for="coin in orderedCoins">
                     <td class="symbol left_align" v-ripple>
-                        <router-link :to="`/currency/${coin.slug}`">{{coin.symbol}}<v-icon>chevron_right</v-icon></router-link></td>
+                        <router-link :to="`/currency/${coin.coin_id}`">{{coin.symbol}}<v-icon>chevron_right</v-icon></router-link></td>
                     <td class="id left_align">{{coin.coin_id}}</td> 
 
                     <td class="usd">{{coin.price_usd | Price}}</td>

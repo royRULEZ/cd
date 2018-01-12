@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/Home'
+import Design from '@/components/Design'
 import Main from '@/components/Main'
 import Currency from '@/components/Currency'
 
@@ -12,11 +12,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/main',
       name: 'Main',
       component: Main
     },
@@ -24,6 +19,11 @@ export default new Router({
       path: '/currency/:currency',
       name: 'Currency',
       component: Currency
-    }  
+    },  
+    {
+      path: '/design',
+      name: 'Design',
+      component: Design
+    },    
   ]
 })

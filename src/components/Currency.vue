@@ -22,10 +22,7 @@
         
         <div class="currency_row-children clearfix"  id="currency_row-0">
             <div class="currency_row-25" id="header-1">
-                <div class="r0-title">Price Change Today</div>
-            </div>
-            <div class="currency_row-25" id="header-2">
-                <div class="r0-title">Reddit Activity</div>
+                <div class="r0-title">Graph Overlay: Reddit Activity, Twitter Activity Price</div>
             </div>
             <div class="currency_row-25" id="header-3">
                 <div class="r0-title">Google Trends: {{coin_basic[0].id}}</div>

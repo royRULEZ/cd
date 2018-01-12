@@ -54,7 +54,12 @@ export default {
     line-height: inherit !important;
     &.theme--light{
       background: inherit !important;
-
+      .theme--light.icon{
+          color: inherit !important;
+      }
+      .icon{
+          color: inherit !important;
+      }
     }
   }
 </style>
