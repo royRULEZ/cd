@@ -116,9 +116,7 @@ export default {
         getWatchList: function(){
             axios.get("http://52.15.54.43:8005/watch-list")
             .then(response => {
-
                 this.watchList = response.data;
-
                 // Put the code here to build arrays and stuff
             })
         },        
