@@ -12,11 +12,13 @@
 @import "modules/grid";
 @import "modules/effects";
 
-@import "modules/forms";
+//@import "modules/forms";
 @import "modules/buttons";
 //@import "modules/navigation";
 
 @import "components/design";
+@import "components/home";
+@import "components/coin";
 
 @import "variables";
 
@@ -52,7 +54,7 @@ body{
     color:#102F41;
 }
 /*
-* Problematic
+*   Fix Vuetify 
 *
 *
 */
@@ -65,603 +67,52 @@ body{
 }
 
 
-#toolbar{
-    background: $color-toolbar-main;
-    .toolbar__title{
-        font-weight: 300;
-        letter-spacing: normal;
-        font-size:16px;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        
-    }
-}
-
-#toolbar-table{
-    .toolbar__content{
-        vertical-align: bottom;
-        .menu{
-            padding-right:10px;
-        }
-    }
-    background: #FFF;
-    .toolbar__title{
-        font-size: 14px !important;
-        letter-spacing: normal;
-        line-height: normal;
-        font-weight: 400;
-        .view-filter{
-            font-weight:700;
-            color: $color-links;
-        }
-        .highlight-filter{
-            font-weight:700;
-        }
-    }
-    i{
-        color: inherit;
-    }
-}
-
-#trending-container{
-    font-family: $RobotoM;
-    @include standard_size(20px, 60px, $max_width: 1400px); 
-    .trending-content{
-        float:left;
-        width: 66%;
-        box-sizing: border-box;
-        height: 60px;
-        .tc-title{
-            text-align: left;
-            vertical-align: middle;
-            box-sizing: border-box;
-            line-height: normal;
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase; 
-            padding-bottom: 5px;
-        }
-        .tc-coins{
-            display: flex;
-            .watch_list-coin{
-                background-color: #FFF;
-                margin:1px;
-                width:18%;
-                float:left;
-                box-sizing: border-box;
-                height: 58px;
-                border-radius: 2px;
-                &:nth-child(2){
-                    border-left:0;
-                }
-                .wlc-title{
-                    height: 35px;
-                    text-align: center;
-                    font-size: 18px;
-                    padding-top:10px;
-                    box-sizing: border-box;
-                    a{
-                        color: $color-links;
-                        text-decoration: underline;
-                    }
-                    i{
-
-                    }
-                }
-                .wlc-change{
-                    height: 23px;
-                    width:90%;
-                    margin: 0 auto;                
-                    div{
-                        width:100%;
-                        font-size: 10px;
-                        line-height: 23px;
-                        text-align: center;
-                        &.change_green{
-                            color: green;
-                        }                    
-                        &.change_red{
-                            color:#F00 !important;
-                        } 
-                    }
-
-                }
-            }           
-        }
-
-    }    
-    .trending-ad{
-        float:left;
-        width: 34%;
-        height: 60px;
-        
-    }
-}
-
-#table-container{
-    font-family: $RobotoM;
-    @include standard_size(30px, 20px, $max_width: 1400px); 
-    text-align: right;
-    vertical-align: bottom;
-    .toolbar__content{
-        background-color:#DDD;
-        border-top:1px solid #CCC;
-        height:50px!important;
-    }
-    table{
-        width:100%;
-        tr{
-            background-color: $color-table-row;
-            width:100%;
-            &:nth-child(odd){
-                background-color:$color-table-stripe;
-            }  
-            &:first-child{
-                background-color:$color-table-header;
-            }
-            th{
-                width:auto;
-                padding:8px;
-                box-sizing: border-box;
-                font-size: 12px;
-                font-weight: 500;
-                //border-bottom: 1px solid #666; 
-                //border-top: 2px solid #666; 
-                text-transform: uppercase;   
-                //color: lighten($color-black, 25%);        
-                color: darken($color-white, 5%);
-                &:hover{
-                    //text-decoration: underline;
-                    font-weight: 700;
-                    color: $color-white;
-                    cursor: pointer;
-                }
-                &.social_title{
-                    width:150px;
-                }
-                &.percent_change{
-                    width:1%;
-                    white-space: nowrap;
-                }  
-                //
-                &.active_class{
-                    color: $color-black;
-                    font-weight: 700;
-                }
-                &.left_align{
-                    text-align: left;
-                } 
-                 
-                i{
-                    font-size:14px;
-                    color:#000;
-                }                                                     
-            }
-            td{
-                border-bottom: 1px solid $color-table-border;
-                width:auto;
-                padding:6px 8px;
-                box-sizing: border-box;
-                font-size:13px;
-                font-weight: 400;
-                letter-spacing: 0;
-                &:last-child{
-                    border-bottom-right-radius: 5px;
-                    border-top-right-radius: 5px;
-                }
-                a{
-                    color: $color-links;
-                }
-                &.symbol{
-                    border-bottom-left-radius: 5px;
-                    border-top-left-radius: 5px;
-                    
-                    font-weight: 700;
-                    cursor: pointer;
-                    width: 1%;
-                    white-space: nowrap;  
-                    text-decoration: underline;
-                    i{
-                        font-size:14px;
-                        vertical-align: middle;
-                        position: relative;
-                        bottom:2px;
-                        color: #AAA!important;
-                    }
-                }
-                &.id{
-                    color: $color-text-lightgrey;
-                    font-style: italic;
-                    font-size: 10px;
-                    vertical-align: bottom;
-                    width: 1%;
-                    white-space: nowrap;  
-                }
-                //
-                &.usd{
-                    width:120px;   
-                    //border-left: 1px solid #DDD;   
-                    font-weight: 500;          
-                }
-                &.cap{
-                    width:120px;
-                    font-size:10px;
-                    vertical-align: bottom;
-                }
-                &.supply{
-                    width:120px;
-                    font-size:10px;
-                    vertical-align: bottom;
-                }
-                //
-                &.r_score{
-                    width:120px;   
-                    //border-left: 1px solid #DDD;             
-                    padding-left: 20px;
-                    overflow: hidden;  
-                    position: relative;
-                    .circle {
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        height: 8px;
-                        width: 8px;
-                        border-radius: 50%;
-                        background-color: #F00;
-                        display: inline-block;      
-                    }
-                    &.circle_no{
-                        display:none;
-                    }   
-                }
-                &.r_activity{
-                    width:120px;
-                }
-                &.r_change{
-                    width:120px;
-                }
-                &.supply{
-                    width:120px;
-                }
-                //
-                &.percent_change{
-                    width:1%;
-                    white-space: nowrap;
-                    font-size:10px;
-                    vertical-align: bottom;
-                    &.hour{
-                        //border-left:1px solid #DDD;
-                    }
-                } 
-                // 
-                &.left_align{
-                    text-align: left;
-                }  
-                &.change_green{
-                    color: green;
-                }                    
-                &.change_red{
-                    color:#F00 !important;
-                } 
-                &.bg_red{
-                    background-color: rgba(255,0,0,.1);
-                }
-                         
-            }
-        }
-    }
-
-}
-
-
 /*
-* Currency
+*   App.vue
+*
 *
 *
 */
-#currency_container{
-    font-family: $RobotoM;
-    @include standard_size(50px, 20px, $max_width: 1400px);
-    .currency_row{
-        width: 100%;
-        border-bottom: 1px solid $color-border;
-        //border-top: 1px solid #DDD;
-        padding:25px 0;
-    }
-    .currency_row-children{
-        width: 100%;
-        border-bottom: 1px solid $color-border;
-        display: flex;
-        .currency_row-50{
-            
-            padding:25px;
-            width:50%;
-            float:left;
-            box-sizing: border-box;
-            border-right:1px solid $color-border;
-            &:last-child{
-                border-right:none;
-            }
-            
-        } 
-        .currency_row-25{
-            box-sizing: border-box;
-            padding:10px;
-            width:25%;
-            float:left;
-            border-right:1px solid $color-border;
-            &:nth-child(4){
-                border-right:none;
-            }
-        }        
-        .currency_row-33{
-            padding:25px;
-            width:33.3333%;
-            float:left;
-            box-sizing: border-box;
-            border-right:1px solid $color-border;
-        }
-        .currency_row-66{
-            padding:25px;
-            width:66.6666%;
-            float:left;
-            box-sizing: border-box;
-            border-right:1px solid $color-border;
-        }        
-    }    
-}
-// Row 0
-#currency_row-0{
-    .r0-title{
-        font-size: 12px;
-        font-weight: 500;
-        text-transform: uppercase;
-        text-align: center;
-    }
-    #header-1{
-        width:50%;
+#drawer_feed{
+    .social_feeds-row{
+        border-bottom:1px solid #D9d9d9;
+        font-weight: 300;
         
-    }
-    #header-3{
-        
-        
-        canvas{
-            padding-top:25px;
-            height:125px!important;
-            width:100%!important;
-        }
-    }
-    #header-4{
-        border-right:0;
-    }    
-}
-//  Indicators Row
-#currency_row-numbers{
-    .r_numbers-number{
-        padding: 5px 0;
-        text-align: right;
-        .rn_type{
-            font-size: 10px;
-            text-transform: uppercase;
+        padding: 10px;
+        .social_feeds-article{
+            font-weight: 500;
+            font-style: italic;
             font-size: 12px;
-            font-weight: 700;
-        }
-        .rn_value{
-            font-size: 16px;
-        }
-    }
-}
-// Row Graph
-#currency_row-graph{
-    #graph_main{
-        
-        
-    }
-    #_feed{
-        padding-right: 0;
-        border-right: 0;
-        .currency_row-graph-title{
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;           
-        }        
-        .social_feeds-row{
-            border-bottom:1px solid #D9d9d9;
-            font-weight: 300;
-            padding:5px 0 5px 0;
-            .social_feeds-article{
+            line-height: 14px;
+            a{
                 font-weight: 500;
                 font-style: italic;
-                font-size: 12px;
-                line-height: 14px;
-                .social_feeds-article-meta{
-                    padding-top:2px;
-                    font-size:10px;
-                    font-weight: 300;
-                    display: block;
-                    a{
-                        font-weight: 300;
-                        font-style: italic;
-                        text-decoration: underline;
-                        color: inherit;
-                    }
-                }
+                text-decoration: underline;
+                color: $color-links;
             }
-            &:first-child{
-                height:40px; // TODO Hacked
-            }
-            &:last-child{
-                border-bottom:0;
-            }
-            .toolbar__title{
-                margin-left:0;
-                text-transform: uppercase;
-                font-size:14px;
-                letter-spacing: 0;
-                color:#017ea4;
-                i{
-                    color: #017ea4;
-                    font-size:18px;
-                }
-            }
-        }       
-    }  
-}
-// Row 1
-#currency_row-1{
-    #coin_meta{
-        border: 0;
-        #symbol{
-            font-size:72px;
-            line-height: 72px;
-            font-weight: 100;
-        }
-        #name-row{
-            font-size:14px;
-            font-weight: 300i;
-            font-style: italic;
-            padding-top:5px;
-            #name{
-                letter-spacing: 2px;
-            }
-            img{
-                height:19px;
-                width: auto;
-                vertical-align: bottom;
+            .social_feeds-article-meta{
+                padding-top:2px;
+                font-size:10px;
+                font-weight: 300;
+                display: block;
             }
         }
-        #currency-current_change_1h{
-            font-weight: 400i;
+        &:first-child{
+            height:40px; // TODO Hacked
         }
-    }
-    #ad{
-        text-align: right;
-        font-size:48px;
-        line-height: normal;
-        font-weight: 100;
-        white-space: nowrap;
-        display: flex;
-        padding-bottom:25px;
-        #currency-current_price{
-            display: inline;
-            color: #4f8a1a;
-            text-align: right;
-            align-self: flex-end;
-            width: 100%;
+        &:last-child{
+            border-bottom:0;
         }
-    }
-}
-// Row 2
-#currency_row-2{
-    .currency_row-2-title{
-        font-size: 18px;
-        font-weight: 700;
-        text-transform: uppercase;    
-        margin-bottom:12px;
     }    
-    #market-basics{
-        &.current_row-33{
-            &:nth-child(3){
-                border-right:none;
-            }
-        }
-        .market_basics-row{
-            border-bottom:1px solid #D9d9d9;
-            font-weight: 300;
-            padding:10px 0;
-            font-size:14px;
-            &:last-child{
-                border-bottom:0;
-            }
-            .market_basics-row-key{
-                font-weight: 400;
-                text-transform: uppercase;
-            }
-            .market_basics-row-value{
-                float:right;
-                padding-right:10px;
-            }
-        }
-    }
-    #social-basics{
-        .currency_row-2-title{
-            padding-left:10px;    
-        }
-        .social_basics-row{
-            border-bottom:1px solid #D9d9d9;
-            font-weight: 300;
-            padding:10px 0 10px 10px;
-            font-size:14px;
-            &:nth-child(2){
-                height:40px; // TODO Hacked
-            }
-            &:last-child{
-                border-bottom:0;
-            }
-            .social_basics-row-key{
-                font-weight: 400;
-                text-transform: uppercase;
-            }
-            .social_basics-row-value{
-                float:right;
-                padding-right:10px;
-            }
-            .toolbar__title{
-                margin-left:0;
-                text-transform: uppercase;
-                font-size:14px;
-                letter-spacing: 0;
-                color:#017ea4;
-                i{
-                    color: #017ea4;
-                    font-size:18px;
-                }
-            }
-        }
-    }
-    #news-basics{
-        border-right: none;
-        .currency_row-2-title{
-            padding-left:10px;    
-        }
-        .news_basics-row{
-            border-bottom:1px solid #D9d9d9;
-            font-weight: 300;
-            padding:10px 0 10px 10px;
-            font-size:14px;
-            &:nth-child(2){
-                height:40px; // TODO Hacked
-            }
-            &:last-child{
-                border-bottom:0;
-            }
-            .news_basics-row-key{
-                font-weight: 400;
-                text-transform: uppercase;
-            }
-            .news_basics-row-value{
-                float:right;
-                padding-right:10px;
-            }
-            .toolbar__title{
-                margin-left:0;
-                text-transform: uppercase;
-                font-size:14px;
-                letter-spacing: 0;
-                color:#017ea4;
-                i{
-                    color: #017ea4;
-                    font-size:18px;
-                }
-            }
-        }
-    }          
-}
-// Row 3
-#currency_row-3{
+    .toolbar__title{
+        padding:13px 0 10px 0;
+        color: $color-black;
+        text-transform: uppercase;
+        font-size:14px;
+        font-weight: 700;
+    }     
+    .toolbar{
+        border-bottom:1px solid rgba(0,0,0,.12)!important;
+    }  
+}  
 
-    #news-feeds{
-        border-right: none;
-    }
-}

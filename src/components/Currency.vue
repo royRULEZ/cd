@@ -1,21 +1,21 @@
 <template>
   <div>
     <div id="currency_container">
-
+Home > BTC
         
-        <div class="currency_row-children" id="currency_row-1">
+        <div class="currency_row-children" id="currency_row-meta">
             <div id="coin_meta" class="currency_row-50">
                 <div id="symbol">
                     {{coin_basic[0].symbol}}
                 </div>
                 <div id="name-row" >
-                    <img src='https://www.stellar.org/wp-content/themes/stellar/images/stellar-rocket-300.png'/>
+                    <!-- <img src='https://www.stellar.org/wp-content/themes/stellar/images/stellar-rocket-300.png'/> -->
                     <span id="name">{{coin_basic[0].id}}</span>
                     <span id="currency-current_change_1h" class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">({{coin_basic[0].percent_change_1h}}%)</span>
                 </div>
             </div>
             
-            <div id="ad" class="currency_row-50">
+            <div id="price" class="currency_row-50">
                 <div id="currency-current_price">{{coin_basic[0].price_usd | Price}}</div>   
             </div>
         </div>
@@ -23,8 +23,24 @@
         <div class="currency_row-children clearfix" id="currency_row-numbers">
             <div class="r_numbers-number">
                 <div class="rn_type">Market Cap</div>
-                <div class="rn_value">$12,230.23</div>
+                <div class="rn_value">${{coin_basic[0].market_cap_usd | Currency}}</div>
             </div>
+            <div class="r_numbers-number">
+                <div class="rn_type">Circulating Supply</div>
+                <div class="rn_value">{{coin_basic[0].available_supply | Currency}}</div>
+            </div>            
+            <div class="r_numbers-number changer">
+                <div class="rn_type">Hour</div>
+                <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">{{coin_basic[0].percent_change_1h}}%</span></div>
+            </div>
+            <div class="r_numbers-number changer">
+                <div class="rn_type">Day</div>
+                <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_24h)}">{{coin_basic[0].percent_change_24h}}%</span></div>
+            </div>
+            <div class="r_numbers-number changer">
+                <div class="rn_type">Week</div>
+                <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_7d)}">{{coin_basic[0].percent_change_7d}}%</span></div>
+            </div>                                    
         </div>
         
         <div class="currency_row-children clearfix" id="currency_row-graph">
@@ -44,7 +60,7 @@
                     </v-menu>
                 </div>
                 <div v-for="post in reddit_titles" :key="feed" class="social_feeds-row">
-                    <div class="social_feeds-article">"{{post[0]}}"<span class="social_feeds-article-meta">Score:{{post[1]}}, Comments:{{post[2]}}, <a target="blank" :href="'http://reddit.com'+post[3]">view</a></span></div>
+                    <div class="social_feeds-article">"{{post[0]}}"<span class="social_feeds-article-meta">[created: {{post[4]}}] Score:{{post[1]}}, Comments:{{post[2]}}, <a target="blank" :href="'http://reddit.com'+post[3]">view on Reddit</a></span></div>
                 </div> 
             </div>
         </div>
@@ -71,7 +87,7 @@
                 </div>          
                 <div class="market_basics-row">
                     <span class="market_basics-row-key">Volume (24hr)</span>
-                    <span class="market_basics-row-value">{{coin_basic[0].a24h_volume_usd | Currency}}</span>
+                    <span class="market_basics-row-value">{{coin_basic[0]["24h_volume_usd"] | Currency}}</span>
                 </div>
                 <div class="market_basics-row">
                     <span class="market_basics-row-key">Circulating Supply</span>
@@ -220,6 +236,7 @@ export default {
                     titles_.push(reddit_data_[i].data.score);
                     titles_.push(reddit_data_[i].data.num_comments);
                     titles_.push(reddit_data_[i].data.permalink);
+                    titles_.push(reddit_data_[i].data.created);
                     titles.push(titles_);
                 }
                 this.reddit_titles = titles;
@@ -254,9 +271,9 @@ export default {
         }
     },
     mounted: function () {
-        this.getCoinBasic();
-        this.getRedditSearch();
-        this.getGoogleTrends();
+        //this.getCoinBasic();
+        //this.getRedditSearch();
+        //this.getGoogleTrends();
     },
     created: function() {
         
@@ -275,8 +292,8 @@ export default {
 }
 
 var formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
+  //style: 'currency',
+  //currency: 'USD',
   minimumFractionDigits: 0,
   // the default value for minimumFractionDigits depends on the currency
   // and is usually already 2
