@@ -4,12 +4,14 @@
         
         <div id="trending-container" class="clearfix">
             <div class="trending-content clearfix">
-                <div class="tc-title"><v-icon>whatshot</v-icon><div>Watch List</div></div>
-                <div class="watch_list-coin" v-for="coin_wl in watchList">
-                    <div class="wlc-title"><router-link :to="`/currency/${coin_wl.coin_id}`">{{coin_wl.symbol}}</router-link></div>
-                    <div class="wlc-change"> 
-                        <div class="change_green" v-bind:class="{'change_red':numLessThanZero(coin_wl.day)}">{{coin_wl.day}}%(Day)</div>
-                        
+                <div class="tc-title">Watch List</div>
+                <div class="tc-coins">
+                    <div class="watch_list-coin" v-for="coin_wl in watchList">
+                        <div class="wlc-title"><router-link :to="`/currency/${coin_wl.coin_id}`">{{coin_wl.symbol}}</router-link></div>
+                        <div class="wlc-change"> 
+                            <div class="change_green" v-bind:class="{'change_red':numLessThanZero(coin_wl.day)}">{{coin_wl.day}}%(Day)</div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -21,8 +23,9 @@
 
         <div id="table-container">
 
-            <v-card color="white lighten-4" flat>
+            <v-card color="lighten-4" flat>
                 <v-toolbar class='elevation-0' id="toolbar-table">
+                <v-toolbar-title>All Cryptocurrencies</v-toolbar-title>
                 <v-menu :nudge-width="100">
                     <v-toolbar-title slot="activator">
                         <span>View: <span class="view-filter">Top 100</span></span><v-icon>arrow_drop_down</v-icon>
@@ -33,6 +36,7 @@
                     </v-list-tile>
                     </v-list>
                 </v-menu>
+                <!--
                 <v-menu :nudge-width="100">
                     <v-toolbar-title slot="activator">
                         <span>Highlight: <span class="highlight-filter">None</span></span><v-icon>arrow_drop_down</v-icon>
@@ -42,13 +46,14 @@
                         <v-list-tile-title v-text="item"></v-list-tile-title>
                     </v-list-tile>
                     </v-list>
-                </v-menu>                
+                </v-menu> 
+                -->
                 <v-spacer></v-spacer>
                 <v-btn icon>
                     <v-icon>search</v-icon>
                 </v-btn>
                 <v-btn icon>
-                    <v-icon>filter_list</v-icon>
+                    <v-icon>flag</v-icon><!-- filter_list, sort -->
                 </v-btn>                
                 </v-toolbar>
             </v-card>
@@ -65,7 +70,7 @@
                     <th class="social_title" @click="sortCoins_ra()">Rddt <v-icon>forum</v-icon></th>
                     <th class="social_title">Rddt 48hr</th>
                     <th class="social_title">Twtr <v-icon>forum</v-icon></th>
-                    <th class="social_title">Twtr 24hr</th>
+                    <th class="social_title">Listen Score</th>
 
                     <th class="percent_change" @click="sortCoins('hour')">Hour</th>
                     <th class="percent_change" @click="sortCoins('day')">Day </th>
@@ -80,7 +85,10 @@
                     <td class="cap">{{coin.market_cap_usd | BigNumber}}</td>
                     <td class="supply">{{coin.available_supply | BigNumber}}</td>
                     
-                    <td class="r_score" v-bind:class="{'bg_red':redditFilter(coin)}">{{coin.r_data | RScoreSum}}</td>
+                    <td class="r_score">
+                        {{coin.r_data | RScoreSum}}
+                        <div class="circle_no" v-bind:class="{'circle':redditFilter(coin)}"></div>
+                    </td>
                     <td class="r_activity">{{coin.r_data | RCommentSum}}</td>
                     <td class="r_24hr">00000</td>
                     <td class="t_activity">00000</td>

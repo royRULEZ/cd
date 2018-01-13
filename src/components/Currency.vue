@@ -7,7 +7,6 @@
             <div id="coin_meta" class="currency_row-50">
                 <div id="symbol">
                     {{coin_basic[0].symbol}}
-                    <span id="currency-current_price">{{coin_basic[0].price_usd | Price}}</span>
                 </div>
                 <div id="name-row" >
                     <img src='https://www.stellar.org/wp-content/themes/stellar/images/stellar-rocket-300.png'/>
@@ -15,8 +14,38 @@
                     <span id="currency-current_change_1h" class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">({{coin_basic[0].percent_change_1h}}%)</span>
                 </div>
             </div>
+            
             <div id="ad" class="currency_row-50">
-                Ads
+                <div id="currency-current_price">{{coin_basic[0].price_usd | Price}}</div>   
+            </div>
+        </div>
+        
+        <div class="currency_row-children clearfix" id="currency_row-numbers">
+            <div class="r_numbers-number">
+                <div class="rn_type">Market Cap</div>
+                <div class="rn_value">$12,230.23</div>
+            </div>
+        </div>
+        
+        <div class="currency_row-children clearfix" id="currency_row-graph">
+            <div class="currency_row-66" id="graph_main">
+                <div class="r0-title">Graph Overlay: Reddit Activity, Twitter Activity Price</div>
+            </div>
+            <div class="currency_row-33" id="_feed">
+                <div class="currency_row-graph-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Social Data</div>
+                <div class="social_feeds-row">
+                    <v-menu :nudge-width="100">
+                        <v-toolbar-title slot="activator"><span>Reddit</span><v-icon>arrow_drop_down</v-icon></v-toolbar-title>
+                        <v-list>
+                        <v-list-tile v-for="item in social_platforms" :key="item" @click="">
+                            <v-list-tile-title v-text="item"></v-list-tile-title>
+                        </v-list-tile>
+                        </v-list>
+                    </v-menu>
+                </div>
+                <div v-for="post in reddit_titles" :key="feed" class="social_feeds-row">
+                    <div class="social_feeds-article">"{{post[0]}}"<span class="social_feeds-article-meta">Score:{{post[1]}}, Comments:{{post[2]}}, <a target="blank" :href="'http://reddit.com'+post[3]">view</a></span></div>
+                </div> 
             </div>
         </div>
         
@@ -31,7 +60,7 @@
             <div class="currency_row-25" id="header-4">
                 <div class="r0-title">CTA</div>
             </div>
-        </div>
+        </div>        
 
         <div class="currency_row-children clearfix" id="currency_row-2">
             <div class="currency_row-33" id="market-basics">
@@ -135,20 +164,7 @@
 
         <div class="currency_row-children clearfix" id="currency_row-3">
             <div class="currency_row-66" id="social-feeds">   
-                <div class="currency_row-3-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Social Data</div>
-                <div class="social_feeds-row">
-                    <v-menu :nudge-width="100">
-                        <v-toolbar-title slot="activator"><span>Reddit</span><v-icon>arrow_drop_down</v-icon></v-toolbar-title>
-                        <v-list>
-                        <v-list-tile v-for="item in social_platforms" :key="item" @click="">
-                            <v-list-tile-title v-text="item"></v-list-tile-title>
-                        </v-list-tile>
-                        </v-list>
-                    </v-menu>
-                </div>
-                <div v-for="post in reddit_titles" :key="feed" class="social_feeds-row">
-                    <span class="social_feeds-article">"{{post[0]}}"<span class="social_feeds-article-meta">Score:{{post[1]}}, Comments:{{post[2]}}, <a target="blank" :href="'http://reddit.com'+post[3]">view</a></span></span>
-                </div>  
+ 
             </div>
             <div class="currency_row-33" id="news-feeds">
             </div>

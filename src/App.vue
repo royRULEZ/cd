@@ -22,6 +22,9 @@
       <v-btn icon>
         <v-icon>search</v-icon>
       </v-btn>
+      <v-btn icon>
+        <v-icon>brightness_3</v-icon>
+      </v-btn>
     </v-toolbar>
 
     <v-content>

@@ -66,9 +66,9 @@ body{
 
 
 #toolbar{
-    background: #102F41;
+    background: $color-toolbar-main;
     .toolbar__title{
-        font-weight: 100;
+        font-weight: 300;
         letter-spacing: normal;
         font-size:16px;
         text-transform: uppercase;
@@ -92,6 +92,7 @@ body{
         font-weight: 400;
         .view-filter{
             font-weight:700;
+            color: $color-links;
         }
         .highlight-filter{
             font-weight:700;
@@ -104,78 +105,70 @@ body{
 
 #trending-container{
     font-family: $RobotoM;
-    @include standard_size(20px, 20px, $max_width: 1400px); 
-    text-align: right;
-    vertical-align: bottom;
-    box-sizing: border-box;
+    @include standard_size(20px, 60px, $max_width: 1400px); 
     .trending-content{
-        border: 1px solid $color-border;
         float:left;
         width: 66%;
         box-sizing: border-box;
         height: 60px;
         .tc-title{
-            border-right:1px solid $color-border;          
+            text-align: left;
             vertical-align: middle;
-            width:10%;
-            padding:10px;
             box-sizing: border-box;
-            height:58px;
-            float: left;
             line-height: normal;
-            text-align: center;
-            i{
-                color:#888!important;
-                font-size: 38px;
-                line-height: 38px;
-            }
-            div{
-                text-transform: uppercase;
-                font-size: 10px;
-            }
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase; 
+            padding-bottom: 5px;
         }
-        .watch_list-coin{
-            border-left:1px solid $color-border;    
-            width:18%;
-            float:left;
-            box-sizing: border-box;
-            height: 58px;
-            &:nth-child(2){
-                border-left:0;
-            }
-            .wlc-title{
-                height: 35px;
-                text-align: center;
-                font-size: 18px;
-                padding-top:10px;
+        .tc-coins{
+            display: flex;
+            .watch_list-coin{
+                background-color: #FFF;
+                margin:1px;
+                width:18%;
+                float:left;
                 box-sizing: border-box;
-                a{
-                    color: $color-links;
-                    text-decoration: underline;
+                height: 58px;
+                border-radius: 2px;
+                &:nth-child(2){
+                    border-left:0;
                 }
-                i{
-
-                }
-            }
-            .wlc-change{
-                height: 23px;
-                width:90%;
-                margin: 0 auto;                
-                div{
-                    width:100%;
-                    font-size: 10px;
-                    line-height: 23px;
+                .wlc-title{
+                    height: 35px;
                     text-align: center;
-                    &.change_green{
-                        color: green;
-                    }                    
-                    &.change_red{
-                        color:#F00 !important;
-                    } 
-                }
+                    font-size: 18px;
+                    padding-top:10px;
+                    box-sizing: border-box;
+                    a{
+                        color: $color-links;
+                        text-decoration: underline;
+                    }
+                    i{
 
-            }
+                    }
+                }
+                .wlc-change{
+                    height: 23px;
+                    width:90%;
+                    margin: 0 auto;                
+                    div{
+                        width:100%;
+                        font-size: 10px;
+                        line-height: 23px;
+                        text-align: center;
+                        &.change_green{
+                            color: green;
+                        }                    
+                        &.change_red{
+                            color:#F00 !important;
+                        } 
+                    }
+
+                }
+            }           
         }
+
     }    
     .trending-ad{
         float:left;
@@ -190,15 +183,21 @@ body{
     @include standard_size(30px, 20px, $max_width: 1400px); 
     text-align: right;
     vertical-align: bottom;
+    .toolbar__content{
+        background-color:#DDD;
+        border-top:1px solid #CCC;
+        height:50px!important;
+    }
     table{
         width:100%;
         tr{
+            background-color: $color-table-row;
             width:100%;
             &:nth-child(odd){
-                background-color:#f4f4f4;
+                background-color:$color-table-stripe;
             }  
             &:first-child{
-                background-color:$color-background;
+                background-color:$color-table-header;
             }
             th{
                 width:auto;
@@ -206,14 +205,15 @@ body{
                 box-sizing: border-box;
                 font-size: 12px;
                 font-weight: 500;
-                border-bottom: 1px solid #666; 
-                border-top: 2px solid #666; 
+                //border-bottom: 1px solid #666; 
+                //border-top: 2px solid #666; 
                 text-transform: uppercase;   
-                color: lighten($color-black, 25%);        
+                //color: lighten($color-black, 25%);        
+                color: darken($color-white, 5%);
                 &:hover{
                     //text-decoration: underline;
                     font-weight: 700;
-                    color: $color-black;
+                    color: $color-white;
                     cursor: pointer;
                 }
                 &.social_title{
@@ -238,17 +238,24 @@ body{
                 }                                                     
             }
             td{
-                border-bottom: 1px solid #BBB;
+                border-bottom: 1px solid $color-table-border;
                 width:auto;
                 padding:6px 8px;
                 box-sizing: border-box;
                 font-size:13px;
                 font-weight: 400;
                 letter-spacing: 0;
+                &:last-child{
+                    border-bottom-right-radius: 5px;
+                    border-top-right-radius: 5px;
+                }
                 a{
                     color: $color-links;
                 }
                 &.symbol{
+                    border-bottom-left-radius: 5px;
+                    border-top-left-radius: 5px;
+                    
                     font-weight: 700;
                     cursor: pointer;
                     width: 1%;
@@ -259,10 +266,11 @@ body{
                         vertical-align: middle;
                         position: relative;
                         bottom:2px;
+                        color: #AAA!important;
                     }
                 }
                 &.id{
-                    color:$color-text-lightgrey;
+                    color: $color-text-lightgrey;
                     font-style: italic;
                     font-size: 10px;
                     vertical-align: bottom;
@@ -272,7 +280,7 @@ body{
                 //
                 &.usd{
                     width:120px;   
-                    border-left: 1px solid #DDD;   
+                    //border-left: 1px solid #DDD;   
                     font-weight: 500;          
                 }
                 &.cap{
@@ -288,8 +296,24 @@ body{
                 //
                 &.r_score{
                     width:120px;   
-                    border-left: 1px solid #DDD;             
+                    //border-left: 1px solid #DDD;             
                     padding-left: 20px;
+                    overflow: hidden;  
+                    position: relative;
+                    .circle {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        height: 8px;
+                        width: 8px;
+                        border-radius: 50%;
+                        background-color: #F00;
+                        display: inline-block;      
+                    }
+                    &.circle_no{
+                        display:none;
+                    }   
                 }
                 &.r_activity{
                     width:120px;
@@ -307,7 +331,7 @@ body{
                     font-size:10px;
                     vertical-align: bottom;
                     &.hour{
-                        border-left:1px solid #DDD;
+                        //border-left:1px solid #DDD;
                     }
                 } 
                 // 
@@ -359,6 +383,7 @@ body{
             &:last-child{
                 border-right:none;
             }
+            
         } 
         .currency_row-25{
             box-sizing: border-box;
@@ -411,6 +436,78 @@ body{
         border-right:0;
     }    
 }
+//  Indicators Row
+#currency_row-numbers{
+    .r_numbers-number{
+        padding: 5px 0;
+        text-align: right;
+        .rn_type{
+            font-size: 10px;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .rn_value{
+            font-size: 16px;
+        }
+    }
+}
+// Row Graph
+#currency_row-graph{
+    #graph_main{
+        
+        
+    }
+    #_feed{
+        padding-right: 0;
+        border-right: 0;
+        .currency_row-graph-title{
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;           
+        }        
+        .social_feeds-row{
+            border-bottom:1px solid #D9d9d9;
+            font-weight: 300;
+            padding:5px 0 5px 0;
+            .social_feeds-article{
+                font-weight: 500;
+                font-style: italic;
+                font-size: 12px;
+                line-height: 14px;
+                .social_feeds-article-meta{
+                    padding-top:2px;
+                    font-size:10px;
+                    font-weight: 300;
+                    display: block;
+                    a{
+                        font-weight: 300;
+                        font-style: italic;
+                        text-decoration: underline;
+                        color: inherit;
+                    }
+                }
+            }
+            &:first-child{
+                height:40px; // TODO Hacked
+            }
+            &:last-child{
+                border-bottom:0;
+            }
+            .toolbar__title{
+                margin-left:0;
+                text-transform: uppercase;
+                font-size:14px;
+                letter-spacing: 0;
+                color:#017ea4;
+                i{
+                    color: #017ea4;
+                    font-size:18px;
+                }
+            }
+        }       
+    }  
+}
 // Row 1
 #currency_row-1{
     #coin_meta{
@@ -434,16 +531,25 @@ body{
                 vertical-align: bottom;
             }
         }
-        #currency-current_price{
-            color: #4f8a1a;
-            font-weight: 400i;
-        }
         #currency-current_change_1h{
             font-weight: 400i;
         }
     }
     #ad{
-        display:none;
+        text-align: right;
+        font-size:48px;
+        line-height: normal;
+        font-weight: 100;
+        white-space: nowrap;
+        display: flex;
+        padding-bottom:25px;
+        #currency-current_price{
+            display: inline;
+            color: #4f8a1a;
+            text-align: right;
+            align-self: flex-end;
+            width: 100%;
+        }
     }
 }
 // Row 2
@@ -554,58 +660,7 @@ body{
 }
 // Row 3
 #currency_row-3{
-    
-    .currency_row-3-title{
-        font-size: 18px;
-        font-weight: 700;
-        text-transform: uppercase;    
-        margin-bottom:12px;        
-    }
-    #social-feeds{
-        .currency_row-3-title{
-               
-        }
-        .social_feeds-row{
-            border-bottom:1px solid #D9d9d9;
-            font-weight: 300;
-            padding:10px 0 10px 0;
-            font-size:14px;
-            .social_feeds-article{
-                font-weight: 500;
-                font-style: italic;
-                font-size: 14px;
-                .social_feeds-article-meta{
-                    padding-top:2px;
-                    font-size:10px;
-                    font-weight: 300;
-                    display: block;
-                    a{
-                        font-weight: 300;
-                        font-style: italic;
-                        text-decoration: underline;
-                        color: inherit;
-                    }
-                }
-            }
-            &:first-child{
-                height:40px; // TODO Hacked
-            }
-            &:last-child{
-                border-bottom:0;
-            }
-            .toolbar__title{
-                margin-left:0;
-                text-transform: uppercase;
-                font-size:14px;
-                letter-spacing: 0;
-                color:#017ea4;
-                i{
-                    color: #017ea4;
-                    font-size:18px;
-                }
-            }
-        }
-    }
+
     #news-feeds{
         border-right: none;
     }
