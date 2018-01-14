@@ -66,15 +66,52 @@
       </v-btn>      
     </v-toolbar>
 
+  
     <v-content>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
     </v-content>
 
+    <!-- Disclaimer -->
+    <v-dialog v-model="dislaimer_dialog" scrollable max-width="600px">
+      <v-card>
+        <v-card-title>CryptoDragnet.com Disclaimer</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          All stock recommendations and comments are the opinion of writer.
+          Investors should be cautious about any and all stock recommendations and should consider the source of any advice on stock selection. Various factors, including personal ownership, may influence or factor into a stock analysis or opinion.
+          All investors are advised to conduct their own independent research into individual stocks before making a purchase decision. In addition, investors are advised that past stock performance is not indicative of future price action.
+          You should be aware of the risks involved in stock investing, and you use the material contained herein at your own risk. Neither AnalysisTime.com nor any of its suppliers guarantee its accuracy or validity, nor are they responsible for any errors or omissions which may have occurred. The analysis, ratings, and/or recommendations made by AnalysisTime.com, and/or any of its suppliers do not provide, imply, or otherwise constitute a guarantee of performance.
+          AnalysisTime.com is comprised of reports, if any, embodying a unique system of stock analysis. Accuracy and completeness cannot be guaranteed. Users should be aware of the risks involved in stock investments. It should not be assumed that future results will be profitable or will equal past performance, real, indicated or implied.
+          The material on this website are provided for information purpose only. AnalysisTime.com does not accept liability for your use of the website. The website is provided on an “as is” and “as available” basis, without any representations, warranties or conditions of any kind.
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn color="blue darken-1" flat @click.native="dislaimer_dialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- /Disclaimer -->
+
+    <!-- Footer-->
     <v-footer app>
-      Footer
+      <div id="footer_container">
+        <div id="disclaimer">
+          <v-icon>warning</v-icon>
+          <a @click="dislaimer_dialog = !dislaimer_dialog">Read the Disclaimer</a>
+          <span>The material on this website are provided for information purpose only.</span>
+          <span>CyrptoDragnet.com does not accept liability for your use of the website.</span>
+        </div>
+        <div id="footer_content">
+          <div id="footer_content-inner">
+            <div>© {{ new Date().getFullYear() }}</div>
+          </div>
+        </div>
+      </div>
     </v-footer>
+    <!-- /Footer-->
+
   </v-app>  
 </template>
 
@@ -90,11 +127,12 @@ export default {
       reddit_sidebar_search: [],
       reddit_sidebar_titles: [],
       global_feeds: ['Reddit', 'Twitter', 'News'],
+      dislaimer_dialog: false
     };
   },
   methods:{
     getRedditSideBarSearch: function (){
-      axios.get("https://www.reddit.com/r/cryptocurrency/search.json?restrict_sr=on&limit=15&sort=top&t=day")
+      axios.get("https://www.reddit.com/r/cryptocurrency/search.json?restrict_sr=on&limit=15&sort=top&t=hour")
       .then(response => {
           this.reddit_sidebar_search = response.data.data;
           var reddit_data_ = this.reddit_sidebar_search.children;

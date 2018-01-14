@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import Design from '@/components/Design'
 import Main from '@/components/Main'
-import Currency from '@/components/Currency'
+import Coin from '@/components/Coin'
 
 Vue.use(Router)
 
@@ -16,9 +16,9 @@ export default new Router({
       component: Main
     },
     {
-      path: '/currency/:currency',
-      name: 'Currency',
-      component: Currency
+      path: '/coin/:coin',
+      name: 'Coin',
+      component: Coin
     },  
     {
       path: '/design',

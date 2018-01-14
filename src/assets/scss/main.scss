@@ -116,3 +116,56 @@ body{
     }  
 }  
 
+/*
+*   App.vue
+*
+*
+*
+*/
+.card__text{
+    font-size:12px!important;
+
+}
+
+
+footer{
+    background-color: $color-white!important;
+    margin-top:50px;
+    #footer_container{
+        padding:0!important;
+        margin:0!important;
+        width:100%;
+        
+        #disclaimer{
+            @include standard_size(20px, 20px, $max_width: 768px);
+            text-align:center;
+            font-size: 12px;
+            a{
+                text-decoration: underline;
+                color: $color-links;
+                padding:5px 0;
+            }
+            span{
+                font-size: 10px;
+            }
+            i{
+                color: $color-red!important;
+            }
+            *{
+             display:block;   
+            }
+            //@include standard_size(20px, 20px, $max_width: 768px); 
+
+        }
+        #footer_content{
+            border-top:1px solid $color-background;
+            background-color: $color-toolbar-main;
+            color: $color-white;
+            font-weight: 300;
+            #footer_content-inner{
+                @include standard_size(0, 0, $max_width: 768px);
+            }
+        }
+    }
+
+}

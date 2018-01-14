@@ -6,7 +6,7 @@
             <h2>Watch List</h2>
             <!-- <div class="coin_watch" v-for="coin_wl in watchList"> -->
             <div class="coin_watch" v-for="coin_wl in watchList">
-                <div class="cw-coin_info"><router-link to="/currency/XRP">XRP</router-link> <span>(-11.39%)</span></div>
+                <div class="cw-coin_info"><router-link to="/coin/XRP">XRP</router-link> <span>(-11.39%)</span></div>
                 <line-chart :chart-data="GoogleChart_data" :options="{responsive: true, maintainAspectRatio: false, legend: { display: false }, scales:{yAxes:[{display:false}], xAxes:[{display:false}]}}"></line-chart>
             </div>
         </div>
@@ -68,7 +68,7 @@
                 </tr>
                 <tr v-for="coin in orderedCoins">
                     <td class="symbol left_align" v-ripple>
-                        <img src='../assets/images/icons/bitcoin.png'/><router-link :to="`/currency/${coin.coin_id}`">{{coin.symbol}}<v-icon>chevron_right</v-icon></router-link></td>
+                        <img src='../assets/images/icons/bitcoin.png'/><router-link :to="`/coin/${coin.coin_id}`">{{coin.symbol}}</router-link><v-icon>chevron_right</v-icon></td>
                     <td class="id left_align">{{coin.coin_id | CharLimit}}</td> 
 
                     <td class="usd">{{coin.price_usd | Price}}</td>

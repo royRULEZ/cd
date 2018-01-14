@@ -196,7 +196,7 @@ export default {
     components:{
         'line-chart': GoogleChart
     },
-    name: 'currency',
+    name: 'coin',
     data () {
     return {
             GoogleChart_data: null,
