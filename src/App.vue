@@ -162,6 +162,8 @@ export default {
 
 <style lang="scss">
 @import "./assets/scss/main.scss";
+@import './assets/icons/cryptocoins.css';
+@import './assets/icons/cryptocoins-colors.css';
 .application {
   font-family: inherit !important;
   line-height: inherit !important;

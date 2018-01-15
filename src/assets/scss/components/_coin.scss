@@ -3,9 +3,30 @@
 *
 *
 */
-#currency_container{
+
+
+/*
+*   Container, Main Objects
+*
+*/
+#coin_container{
     font-family: $RobotoM;
-    @include standard_size(20px, 20px, $max_width: 1400px);
+    @include standard_size(0, 20px, $max_width: 1400px);
+    #coin_breadcrumbs{
+        display: flex;
+        display: none; // DON'T SHOW BREADCRUMBS
+        align-items: center;
+        font-size: 14px;
+        font-weight: 400;
+        a{
+            color: $color-links;
+            text-decoration: underline;
+        }
+        i{
+            font-size:16px!important;
+            
+        }
+    }
     .currency_row{
         width: 100%;
         border-bottom: 1px solid $color-border;
@@ -18,7 +39,7 @@
         display: flex;
         .currency_row-50{
             
-            padding:25px;
+            padding:20px;
             width:50%;
             float:left;
             box-sizing: border-box;
@@ -30,7 +51,7 @@
         } 
         .currency_row-25{
             box-sizing: border-box;
-            padding:10px;
+            padding:20px;
             width:25%;
             float:left;
             border-right:1px solid $color-border;
@@ -39,14 +60,14 @@
             }
         }        
         .currency_row-33{
-            padding:25px;
+            padding:20px;
             width:33.3333%;
             float:left;
             box-sizing: border-box;
             border-right:1px solid $color-border;
         }
         .currency_row-66{
-            padding:25px;
+            padding:20px;
             width:66.6666%;
             float:left;
             box-sizing: border-box;
@@ -54,6 +75,93 @@
         }        
     }    
 }
+// /Container
+
+/*
+*   Meta Tags
+*
+*/
+#currency_row-meta{
+    #coin_meta{
+        border: 0;
+        padding: 20px 0;
+        #name{
+            font-size: 52px;
+            line-height: 52px;
+            font-weight: 300;
+            letter-spacing: -2px;
+        }
+        #details{
+            font-size:12px;
+            font-weight: 300;
+            font-style: italic;
+            padding-top: 5px;
+            #name{
+                
+            }
+            img{
+                height:19px;
+                width: auto;
+                vertical-align: bottom;
+            }
+        }
+        #currency-current_change_1h{
+            font-weight: 400i;
+        }
+        a{
+            color: $color-links;
+            text-decoration: underline;
+        }
+    }
+    #price{
+        padding: 20px 0;   
+        text-align: right;
+        font-size: 48px;
+        line-height: 48px;
+        font-weight: 300;
+        display: flex;
+        #currency-current_price{
+            display: inline;
+            color: $color-green;
+            text-align: right;
+            width: 100%;
+            letter-spacing: -2px;
+        }
+    }
+}
+// /Meta
+
+/*
+*   Numbers (Indicators) Row   
+*
+*/ 
+#currency_row-numbers{ 
+    .r_numbers-number{
+        padding: 5px 25px;
+        text-align: right;
+        //width:25%;
+        display:flex;
+        .rn_type{
+            font-size: 10px;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 700;
+            
+        }
+        .rn_value{
+            font-size: 16px;
+            color: $color-black;
+        }
+        &.changer{
+            
+            
+            background-color:#f00;
+        }
+    }
+}
+
+
+
 // Row 0
 #currency_row-0{
     .r0-title{
@@ -161,51 +269,7 @@
         }       
     }  
 }
-// Row 1
-#currency_row-meta{
-    #coin_meta{
-        border: 0;
-        padding: 20px 0;
-        #symbol{
-            font-size:72px;
-            line-height: 72px;
-            font-weight: 700;
-        }
-        #name-row{
-            font-size:14px;
-            font-weight: 300;
-            font-style: italic;
-            padding-top: 5px;
-            #name{
-                
-            }
-            img{
-                height:19px;
-                width: auto;
-                vertical-align: bottom;
-            }
-        }
-        #currency-current_change_1h{
-            font-weight: 400i;
-        }
-    }
-    #price{
-        text-align: right;
-        font-size:48px;
-        line-height: normal;
-        font-weight: 100;
-        white-space: nowrap;
-        display: flex;
-        padding: 20px 0;        
-        #currency-current_price{
-            display: inline;
-            color: $color-green;
-            text-align: right;
-            align-self: flex-end;
-            width: 100%;
-        }
-    }
-}
+
 // Row 2
 #currency_row-2{
     .currency_row-2-title{

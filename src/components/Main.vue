@@ -68,7 +68,7 @@
                 </tr>
                 <tr v-for="coin in orderedCoins">
                     <td class="symbol left_align" v-ripple>
-                        <img src='../assets/images/icons/bitcoin.png'/><router-link :to="`/coin/${coin.coin_id}`">{{coin.symbol}}</router-link><v-icon>chevron_right</v-icon></td>
+                        <router-link :to="`/coin/${coin.coin_id}`">{{coin.symbol}}</router-link><i :class="`cc ${coin.symbol}`"></i><v-icon class="chevron--right">chevron_right</v-icon></td>
                     <td class="id left_align">{{coin.coin_id | CharLimit}}</td> 
 
                     <td class="usd">{{coin.price_usd | Price}}</td>

@@ -1,16 +1,21 @@
 <template>
-  <div>
-    <div id="currency_container">
-Home > BTC
-        
+    <div id="coin_container">
+
+        <!-- Breadcrumbs -->
+        <div id="coin_breadcrumbs">
+            <router-link to="/">Home</router-link><v-icon>chevron_right</v-icon>{{coin_basic[0].symbol}}
+        </div>
+        <!-- /Breadcrumbs -->
+
+        <!-- NamePrice -->
         <div class="currency_row-children" id="currency_row-meta">
             <div id="coin_meta" class="currency_row-50">
-                <div id="symbol">
-                    {{coin_basic[0].symbol}}
+                <div id="name">
+                    {{coin_basic[0].name}}({{coin_basic[0].symbol}})
                 </div>
-                <div id="name-row" >
+                <div id="details" >
                     <!-- <img src='https://www.stellar.org/wp-content/themes/stellar/images/stellar-rocket-300.png'/> -->
-                    <span id="name">{{coin_basic[0].id}}</span>
+                    <router-link to="/">Website</router-link>
                     <span id="currency-current_change_1h" class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">({{coin_basic[0].percent_change_1h}}%)</span>
                 </div>
             </div>
@@ -19,8 +24,13 @@ Home > BTC
                 <div id="currency-current_price">{{coin_basic[0].price_usd | Price}}</div>   
             </div>
         </div>
+        <!-- /NamePrice -->
         
         <div class="currency_row-children clearfix" id="currency_row-numbers">
+            <div class="r_numbers-number">
+                <div class="rn_type">24hr Volume</div>
+                <div class="rn_value">${{coin_basic[0]["24h_volume_usd"] | Currency}}</div>
+            </div>
             <div class="r_numbers-number">
                 <div class="rn_type">Market Cap</div>
                 <div class="rn_value">${{coin_basic[0].market_cap_usd | Currency}}</div>
@@ -28,19 +38,25 @@ Home > BTC
             <div class="r_numbers-number">
                 <div class="rn_type">Circulating Supply</div>
                 <div class="rn_value">{{coin_basic[0].available_supply | Currency}}</div>
-            </div>            
-            <div class="r_numbers-number changer">
-                <div class="rn_type">Hour</div>
-                <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">{{coin_basic[0].percent_change_1h}}%</span></div>
+            </div> 
+            <div class="r_numbers-number">
+                <div class="rn_type">24hr Low / 24 High</div>
+                <div class="rn_value">{{coin_basic[0].available_supply | Currency}}</div>
+            </div>       
+            <div id="r_numbers-number" or class="r_numbers-number">                    
+                <div class="r_numbers-number changer">
+                    <div class="rn_type">Hour</div>
+                    <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">{{coin_basic[0].percent_change_1h}}%</span></div>
+                </div>
+                <div class="r_numbers-number changer">
+                    <div class="rn_type">Day</div>
+                    <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_24h)}">{{coin_basic[0].percent_change_24h}}%</span></div>
+                </div>
+                <div class="r_numbers-number changer">
+                    <div class="rn_type">Week</div>
+                    <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_7d)}">{{coin_basic[0].percent_change_7d}}%</span></div>
+                </div>                                    
             </div>
-            <div class="r_numbers-number changer">
-                <div class="rn_type">Day</div>
-                <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_24h)}">{{coin_basic[0].percent_change_24h}}%</span></div>
-            </div>
-            <div class="r_numbers-number changer">
-                <div class="rn_type">Week</div>
-                <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_7d)}">{{coin_basic[0].percent_change_7d}}%</span></div>
-            </div>                                    
         </div>
         
         <div class="currency_row-children clearfix" id="currency_row-graph">
@@ -186,7 +202,6 @@ Home > BTC
             </div>
         </div>
     </div>
-  </div>
 </template>
 
 <script>

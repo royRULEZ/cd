@@ -49,16 +49,6 @@
 
 }
 
-#toolbar{
-    background: $color-toolbar-main;
-    .toolbar__title{
-        font-weight: 300;
-        letter-spacing: normal;
-        font-size:16px;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-    }
-}
 #toolbar-table{
     .toolbar__content{
         vertical-align: bottom;
@@ -184,22 +174,16 @@
                     cursor: pointer;
                     width: 1%;
                     white-space: nowrap;  
-                    img{
-                        width: 13px;
-                        height: 13px;
-                        margin-right:5px;
+                    .chevron--right{
+                        padding-left:0!important;
                         vertical-align: middle;
-                        box-sizing: border-box;
-                        position: relative;
-                        bottom: 1px;
-                        
                     }
                     i{
-                        font-size:14px;
+                        font-size:13px;
                         vertical-align: middle;
                         position: relative;
-                        bottom:2px;
-                        color: #AAA!important;
+                        bottom:4px;
+                        padding-left:4px;
                     }
                     a{
                         text-decoration: underline;
