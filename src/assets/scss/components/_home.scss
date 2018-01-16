@@ -131,6 +131,9 @@
                     color: $color-white;
                     cursor: pointer;
                 }
+                &.symbol{
+                    padding:8px 8px 8px 6px;
+                }
                 &.social_title{
                     width:150px;
                 }
@@ -167,9 +170,15 @@
                 a{
                     color: $color-links;
                 }
-                &.symbol{
+                &.c_icon{
+                    width:1%;
+                    white-space: nowrap;
+                    padding:6px 0px 6px 4px;
                     border-bottom-left-radius: 5px;
-                    border-top-left-radius: 5px;
+                    border-top-left-radius: 5px;                    
+                }
+                &.symbol{
+                    padding:6px 8px 6px 6px;
                     font-weight: 700;
                     cursor: pointer;
                     width: 1%;
@@ -203,19 +212,20 @@
                 }
                 //
                 &.usd{
-                    width:120px;   
+                    width:110px;   
                     //border-left: 1px solid #DDD;   
                     font-weight: 500;          
                 }
                 &.cap{
-                    width:120px;
-                    font-size:10px;
-                    vertical-align: bottom;
+                    width:110px;
+                    font-size:12px;
+                    span{
+                        color:#444;
+                    }
                 }
                 &.volume{
                     width:120px;
-                    font-size:10px;
-                    vertical-align: bottom;
+                    font-size:12px;
                 }
                 //
                 &.r_score{
@@ -252,8 +262,7 @@
                 &.percent_change{
                     width:1%;
                     white-space: nowrap;
-                    font-size:10px;
-                    vertical-align: bottom;
+                    font-size:11px;
                     &.hour{
                         //border-left:1px solid #DDD;
                     }

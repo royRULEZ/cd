@@ -4,6 +4,23 @@
 *
 */
 
+/*
+*   Global
+*
+*/
+.c_eyebrow{
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 300; 
+    color: $color-black;
+}
+.c_section-title{
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase; 
+    color: $color-accent-1;
+} 
+
 
 /*
 *   Container, Main Objects
@@ -27,18 +44,12 @@
             
         }
     }
-    .currency_row{
-        width: 100%;
-        border-bottom: 1px solid $color-border;
-        //border-top: 1px solid #DDD;
-        padding:25px 0;
-    }
-    .currency_row-children{
+    // Grid Definitions
+    .coin_row-children{
         width: 100%;
         border-bottom: 1px solid $color-border;
         display: flex;
         .currency_row-50{
-            
             padding:20px;
             width:50%;
             float:left;
@@ -47,7 +58,6 @@
             &:last-child{
                 border-right:none;
             }
-            
         } 
         .currency_row-25{
             box-sizing: border-box;
@@ -75,7 +85,7 @@
         }        
     }    
 }
-// /Container
+// End Container
 
 /*
 *   Meta Tags
@@ -90,15 +100,18 @@
             line-height: 52px;
             font-weight: 300;
             letter-spacing: -2px;
+            #name-name{
+                font-weight: 400;
+            }
+            #name-symbol{
+                font-weight: 700;
+            }           
         }
         #details{
             font-size:12px;
             font-weight: 300;
             font-style: italic;
             padding-top: 5px;
-            #name{
-                
-            }
             img{
                 height:19px;
                 width: auto;
@@ -118,7 +131,7 @@
         text-align: right;
         font-size: 48px;
         line-height: 48px;
-        font-weight: 300;
+        font-weight: 700;
         display: flex;
         #currency-current_price{
             display: inline;
@@ -126,40 +139,117 @@
             text-align: right;
             width: 100%;
             letter-spacing: -2px;
+            .c-price{
+                line-height: normal;
+                color: $color-black;
+                letter-spacing: normal;
+            }
         }
     }
 }
-// /Meta
+
+
 
 /*
 *   Numbers (Indicators) Row   
 *
 */ 
-#currency_row-numbers{ 
+#coin_row-numbers{ 
+    font-weight: 700;
     .r_numbers-number{
-        padding: 5px 25px;
+        padding: 5px 0;
         text-align: right;
-        //width:25%;
-        display:flex;
-        .rn_type{
-            font-size: 10px;
-            text-transform: uppercase;
-            font-size: 12px;
-            font-weight: 700;
-            
-        }
+        width: 18%;
+        float: left;
         .rn_value{
-            font-size: 16px;
+            font-size: 14px;
             color: $color-black;
         }
         &.changer{
-            
-            
             background-color:#f00;
+        }
+    }
+    .r_numbers-changes{
+        width: 23%;
+        float: left;
+        border-left: 1px solid $color-border;
+        box-sizing: border-box;
+        margin-left: 5%;
+        .r_numbers-number{
+            width: 33%;
+            float: left;
+            .rn_value{
+                font-size: 14px;
+                color: $color-black;
+            }
         }
     }
 }
 
+
+
+/*
+*   Graph & Headlines  
+*
+*/ 
+#coin_row-graph{
+    #graph_main{
+        canvas{
+            padding-top:25px;
+            height:350px!important;
+            width:100%!important;
+        }
+    }
+    #_feed{
+        padding-right: 0;
+        border-right: 0;
+        .social_feeds-row{
+            border-bottom:1px solid #D9d9d9;
+            font-weight: 300;
+            padding:5px 0 5px 0;
+            .social_feeds-article{
+                font-weight: 500;
+                font-style: italic;
+                font-size: 12px;
+                line-height: 14px;
+                .social_feeds-article-meta{
+                    padding-top:2px;
+                    font-size:10px;
+                    font-weight: 300;
+                    display: block;
+                    a{
+                        font-weight: 300;
+                        font-style: italic;
+                        text-decoration: underline;
+                        color: inherit;
+                    }
+                }
+            }
+            &:first-child{
+                height:40px; // TODO Hacked
+            }
+            &:nth-child(2){
+                text-align: right;
+            }
+            &:last-child{
+                border-bottom:0;
+                //text-align: right;
+            }
+            .toolbar__title{
+                margin-left:0;
+                text-transform: uppercase;
+                font-size:14px;
+                letter-spacing: 0;
+                color:$color-links;
+                text-align: right;
+                i{
+                    color: #5d25fa;
+                    font-size:18px;
+                }
+            }
+        }       
+    }  
+}
 
 
 // Row 0
@@ -213,62 +303,7 @@
         }
     }
 }
-// Row Graph
-#currency_row-graph{
-    #graph_main{
-        
-        
-    }
-    #_feed{
-        padding-right: 0;
-        border-right: 0;
-        .currency_row-graph-title{
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;           
-        }        
-        .social_feeds-row{
-            border-bottom:1px solid #D9d9d9;
-            font-weight: 300;
-            padding:5px 0 5px 0;
-            .social_feeds-article{
-                font-weight: 500;
-                font-style: italic;
-                font-size: 12px;
-                line-height: 14px;
-                .social_feeds-article-meta{
-                    padding-top:2px;
-                    font-size:10px;
-                    font-weight: 300;
-                    display: block;
-                    a{
-                        font-weight: 300;
-                        font-style: italic;
-                        text-decoration: underline;
-                        color: inherit;
-                    }
-                }
-            }
-            &:first-child{
-                height:40px; // TODO Hacked
-            }
-            &:last-child{
-                border-bottom:0;
-            }
-            .toolbar__title{
-                margin-left:0;
-                text-transform: uppercase;
-                font-size:14px;
-                letter-spacing: 0;
-                color:#017ea4;
-                i{
-                    color: #017ea4;
-                    font-size:18px;
-                }
-            }
-        }       
-    }  
-}
+
 
 // Row 2
 #currency_row-2{

@@ -136,7 +136,6 @@ export default {
       .then(response => {
           this.reddit_sidebar_search = response.data.data;
           var reddit_data_ = this.reddit_sidebar_search.children;
-          console.log(reddit_data_);
           let titles = [];  
           let titles_ = [];  
           //var rt_counter = (reddit_data_.length > 10 ? rt_counter = 10 : rt_counter = reddit_data_.length);            

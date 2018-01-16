@@ -8,65 +8,73 @@
         <!-- /Breadcrumbs -->
 
         <!-- NamePrice -->
-        <div class="currency_row-children" id="currency_row-meta">
+        <div class="coin_row-children" id="currency_row-meta">
             <div id="coin_meta" class="currency_row-50">
                 <div id="name">
-                    {{coin_basic[0].name}}({{coin_basic[0].symbol}})
+                    <span id="name-name">{{coin_basic[0].name}}</span><span id="name-symbol">({{coin_basic[0].symbol}})</span>
                 </div>
                 <div id="details" >
-                    <!-- <img src='https://www.stellar.org/wp-content/themes/stellar/images/stellar-rocket-300.png'/> -->
-                    <router-link to="/">Website</router-link>
+                    <i :class="`cc ${coin_basic[0].symbol}`"></i>
+                    <router-link to="/">website</router-link>
                     <span id="currency-current_change_1h" class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">({{coin_basic[0].percent_change_1h}}%)</span>
                 </div>
             </div>
             
             <div id="price" class="currency_row-50">
-                <div id="currency-current_price">{{coin_basic[0].price_usd | Price}}</div>   
+                <div id="currency-current_price"><div class="c_eyebrow c-price">Current Price</div>{{coin_basic[0].price_usd | Price}}</div>   
             </div>
         </div>
         <!-- /NamePrice -->
         
-        <div class="currency_row-children clearfix" id="currency_row-numbers">
+        <!-- Numbers -->
+        <div class="coin_row-children clearfix" id="coin_row-numbers">
             <div class="r_numbers-number">
-                <div class="rn_type">24hr Volume</div>
+                <div class="c_eyebrow">24hr Volume</div>
                 <div class="rn_value">${{coin_basic[0]["24h_volume_usd"] | Currency}}</div>
             </div>
             <div class="r_numbers-number">
-                <div class="rn_type">Market Cap</div>
+                <div class="c_eyebrow">Market Cap</div>
                 <div class="rn_value">${{coin_basic[0].market_cap_usd | Currency}}</div>
             </div>
             <div class="r_numbers-number">
-                <div class="rn_type">Circulating Supply</div>
+                <div class="c_eyebrow">Circulating Supply</div>
                 <div class="rn_value">{{coin_basic[0].available_supply | Currency}}</div>
             </div> 
             <div class="r_numbers-number">
-                <div class="rn_type">24hr Low / 24 High</div>
+                <div class="c_eyebrow">24hr Low / 24 High</div>
                 <div class="rn_value">{{coin_basic[0].available_supply | Currency}}</div>
             </div>       
-            <div id="r_numbers-number" or class="r_numbers-number">                    
-                <div class="r_numbers-number changer">
-                    <div class="rn_type">Hour</div>
+            <div class="r_numbers-changes">                    
+                <div class="r_numbers-number">
+                    <div class="c_eyebrow">Hour</div>
                     <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">{{coin_basic[0].percent_change_1h}}%</span></div>
                 </div>
-                <div class="r_numbers-number changer">
-                    <div class="rn_type">Day</div>
+                <div class="r_numbers-number">
+                    <div class="c_eyebrow">Day</div>
                     <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_24h)}">{{coin_basic[0].percent_change_24h}}%</span></div>
                 </div>
-                <div class="r_numbers-number changer">
-                    <div class="rn_type">Week</div>
+                <div class="r_numbers-number">
+                    <div class="c_eyebrow">Week</div>
                     <div class="rn_value"><span class="green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_7d)}">{{coin_basic[0].percent_change_7d}}%</span></div>
                 </div>                                    
             </div>
         </div>
+        <!-- /Numbers -->
         
-        <div class="currency_row-children clearfix" id="currency_row-graph">
+        <!-- Chart -->
+        <div class="coin_row-children clearfix" id="coin_row-graph">
             <div class="currency_row-66" id="graph_main">
-                <div class="r0-title">Graph Overlay: Reddit Activity, Twitter Activity Price</div>
+                <div class="c_section-title">{{coin_basic[0].symbol}} Social Activity against Price</div>
+                <line-chart :chart-data="GoogleChart_data" :options="{responsive: true, maintainAspectRatio: false, scales:{yAxes:[{gridLines:{display:true},ticks:{suggestedMax:100}}], xAxes:[{display:false}]}}"></line-chart>    
+                <!-- legend: { display: false } -->
+                
+                
+                
             </div>
             <div class="currency_row-33" id="_feed">
-                <div class="currency_row-graph-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Social Data</div>
+                <div class="c_section-title">{{coin_basic[0].symbol}} Social Listening</div>
                 <div class="social_feeds-row">
-                    <v-menu :nudge-width="100">
+                    <v-menu :nudge-width="0"  bottom left>
                         <v-toolbar-title slot="activator"><span>Reddit</span><v-icon>arrow_drop_down</v-icon></v-toolbar-title>
                         <v-list>
                         <v-list-tile v-for="item in social_platforms" :key="item" @click="">
@@ -76,25 +84,27 @@
                     </v-menu>
                 </div>
                 <div v-for="post in reddit_titles" :key="feed" class="social_feeds-row">
-                    <div class="social_feeds-article">"{{post[0]}}"<span class="social_feeds-article-meta">[created: {{post[4]}}] Score:{{post[1]}}, Comments:{{post[2]}}, <a target="blank" :href="'http://reddit.com'+post[3]">view on Reddit</a></span></div>
+                    <div class="social_feeds-article">"{{post[0]}}"<span class="social_feeds-article-meta">Score:{{post[1]}}, Comments:{{post[2]}}, <a target="blank" :href="'http://reddit.com'+post[3]">view on Reddit</a></span></div>
                 </div> 
             </div>
         </div>
         
-        <div class="currency_row-children clearfix"  id="currency_row-0">
+        <div class="coin_row-children clearfix"  id="currency_row-0">
             <div class="currency_row-25" id="header-1">
                 <div class="r0-title">Graph Overlay: Reddit Activity, Twitter Activity Price</div>
             </div>
             <div class="currency_row-25" id="header-3">
                 <div class="r0-title">Google Trends: {{coin_basic[0].id}}</div>
+                <!--
                 <line-chart :chart-data="GoogleChart_data" :options="{responsive: true, maintainAspectRatio: false, legend: { display: false }, scales:{yAxes:[{ticks:{suggestedMax:100}}], xAxes:[{display:false}]}}"></line-chart>    
+                -->
             </div>
             <div class="currency_row-25" id="header-4">
                 <div class="r0-title">CTA</div>
             </div>
         </div>        
 
-        <div class="currency_row-children clearfix" id="currency_row-2">
+        <div class="coin_row-children clearfix" id="currency_row-2">
             <div class="currency_row-33" id="market-basics">
                 <div class="currency_row-2-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Market Data</div>
                 <div class="market_basics-row">
@@ -194,7 +204,7 @@
             </div>
         </div>
 
-        <div class="currency_row-children clearfix" id="currency_row-3">
+        <div class="coin_row-children clearfix" id="currency_row-3">
             <div class="currency_row-66" id="social-feeds">   
  
             </div>
@@ -233,34 +243,53 @@ export default {
         },
         getRedditSearch: function (){
             
-            axios.get("https://www.reddit.com/r/cryptocurrency/search.json?q=" + this.$route.params.currency + "&restrict_sr=on&limit=100&sort=hot&t=day")
+            axios.get("https://www.reddit.com/r/cryptocurrency/search.json?q=" + this.$route.params.coin + "&restrict_sr=on&limit=100&sort=hot")
             .then(response => {
                 this.reddit_search = response.data.data;
-     
                 
                 // Get Reddit Titles
-                var reddit_data_ = this.reddit_search.children;
-                console.log(reddit_data_);
-                let titles = [];  
+                let reddit_data__ = this.reddit_search.children;   
                 let titles_ = [];  
-                var rt_counter = (reddit_data_.length > 10 ? rt_counter = 10 : rt_counter = reddit_data_.length);            
-                reddit_data_.sort((a,b) => { return b.data.num_comments - a.data.num_comments});
+                let titles__ = [];  
+                var rt_counter = (reddit_data__.length > 6 ? rt_counter = 6 : rt_counter = reddit_data__.length);            
+                reddit_data__.sort((a,b) => { return b.data.num_comments - a.data.num_comments});
                 for(var i = 0; i < rt_counter; i++){
-                    titles_ = [];
-                    titles_.push(reddit_data_[i].data.title);
-                    titles_.push(reddit_data_[i].data.score);
-                    titles_.push(reddit_data_[i].data.num_comments);
-                    titles_.push(reddit_data_[i].data.permalink);
-                    titles_.push(reddit_data_[i].data.created);
-                    titles.push(titles_);
+                    titles__ = [];
+                    titles__.push(reddit_data__[i].data.title);
+                    titles__.push(reddit_data__[i].data.score);
+                    titles__.push(reddit_data__[i].data.num_comments);
+                    titles__.push(reddit_data__[i].data.permalink);
+                    titles__.push(reddit_data__[i].data.created);
+                    titles_.push(titles__);
                 }
-                this.reddit_titles = titles;
-                
+                this.reddit_titles = titles_;
+                console.log(this.reddit_titles);
             })
             
         }, 
         getGoogleTrends: function (){
             
+            let data_obj = [];
+            let data_labels = ["A","A","A","A","A","B","A","A","A","A","C","A","A","A","A","D","A","A","A","A"];
+            let data_obj_1 = [];
+            let data_labels_1 = ["A","A","A","A","A","B","A","A","A","A","C","A","A","A","A","D","A","A","A","A"];
+            let price_obj = [4, 11, 14, 15, 16, 27, 48, 70, 31, 34, 60, 52, 71, 77, 60, 84, 88, 91, 93, 95];
+            
+            for(var i = 0; i < 20; i++){
+                data_obj.push(Math.random()*((i*5)-i)+(i));
+            }
+            for(var i = 0; i < 20; i++){
+                data_obj_1.push(Math.random()*((i*5)-i)+(i));
+            }
+            
+            console.log(data_obj);
+            console.log(data_obj_1);
+            console.log(price_obj);
+            
+            this.GoogleChart_data = {labels: data_labels,"datasets":[{"label": "Reddit", "backgroundColor":"rgba(43,176,165,.6)", "borderColor": "rgba(0,0,0,0)","data":data_obj},{"label": "Twitter","backgroundColor":"rgba(40,95,114,.6)", "borderColor": "rgba(0,0,0,0)", "data":data_obj_1},{"label": "Price", "backgroundColor": "rgba(0,0,0,0)", "borderColor":"#5d25fa","data":price_obj}]};
+            
+            
+            /*
             
             //axios.get("http://localhost:8005/google-trends/" + this.$route.params.currency)
             axios.get("http://52.15.54.43:8005/google-trends/" + this.$route.params.currency)
@@ -278,6 +307,7 @@ export default {
                 console.log(data_obj);
                 this.GoogleChart_data = {labels: data_labels,"datasets":[{"backgroundColor":"rgba(245,72,40,.5)","data":data_obj}]};
             })
+            */
             
             
         },    
@@ -287,8 +317,8 @@ export default {
     },
     mounted: function () {
         //this.getCoinBasic();
-        //this.getRedditSearch();
-        //this.getGoogleTrends();
+        this.getRedditSearch();
+        this.getGoogleTrends();
     },
     created: function() {
         

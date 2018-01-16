@@ -49,7 +49,8 @@
 
             <table>
                 <tr>
-                    <th class="left_align">Symbol</th>
+                    <th></th>
+                    <th class="left_align symbol">Symbol</th>
                     <th class="id left_align">Name</th> <!-- TODO - truncate -->
                     <th class="usd" @click="sortCoins('price_usd')">$USD</th>
                     <th @click="sortCoins('24h_volume_usd')">24Hr Volume</th>
@@ -67,13 +68,14 @@
                     <th class="percent_change" @click="sortCoins('week')">Week</th>                               
                 </tr>
                 <tr v-for="coin in orderedCoins">
+                    <td class="c_icon"><i :class="`cc ${coin.symbol}`"></i></td>
                     <td class="symbol left_align" v-ripple>
-                        <router-link :to="`/coin/${coin.coin_id}`">{{coin.symbol}}</router-link><i :class="`cc ${coin.symbol}`"></i><v-icon class="chevron--right">chevron_right</v-icon></td>
+                        <router-link :to="`/coin/${coin.coin_id}`">{{coin.symbol}}</router-link><v-icon class="chevron--right">chevron_right</v-icon></td>
                     <td class="id left_align">{{coin.coin_id | CharLimit}}</td> 
 
                     <td class="usd">{{coin.price_usd | Price}}</td>
-                    <td class="volume">{{coin["24h_volume_usd"] | BigNumber}}</td>                    
-                    <td class="cap">{{coin.market_cap_usd | BigNumber}}</td>
+                    <td class="volume">{{coin["24h_volume_usd"] | BigNumber}}<span>M</span></td>                    
+                    <td class="cap">{{coin.market_cap_usd | BigNumber}}<span>M</span></td>
 
                     
                     <td class="r_score">
@@ -223,7 +225,7 @@ export default {
         },
         BigNumber(value){
             var value_ = Math.trunc(value / 1000000);
-            return value_.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "M";
+            return value_.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         },
         RScoreSum(value){
             return value[value.length-1].score_sum;
