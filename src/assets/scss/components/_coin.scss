@@ -18,7 +18,7 @@
     font-size: 16px;
     font-weight: 700;
     text-transform: uppercase; 
-    color: $color-accent-1;
+    color: $color-black;
 } 
 
 
@@ -196,8 +196,9 @@
     #graph_main{
         canvas{
             padding-top:25px;
-            height:350px!important;
+            height:375px!important;
             width:100%!important;
+            color: inherit !important;
         }
     }
     #_feed{
@@ -252,66 +253,18 @@
 }
 
 
-// Row 0
-#currency_row-0{
-    .r0-title{
-        font-size: 12px;
-        font-weight: 500;
-        text-transform: uppercase;
-        text-align: center;
-    }
-    #header-1{
-        width:50%;
-        
-    }
-    #header-3{
-        
-        
-        canvas{
-            padding-top:25px;
-            height:125px!important;
-            width:100%!important;
-        }
-    }
-    #header-4{
-        border-right:0;
-    }    
-}
-//  Indicators Row
-#currency_row-numbers{
-    
-    .r_numbers-number{
-        padding: 5px 25px;
-        text-align: right;
-        //width:25%;
-        float:right;
-        .rn_type{
-            font-size: 10px;
-            text-transform: uppercase;
-            font-size: 12px;
-            font-weight: 700;
-            
-        }
-        .rn_value{
-            font-size: 16px;
-            color: $color-black;
-        }
-        &.changer{
-            
-            
-            background-color:#f00;
-        }
-    }
-}
 
-
-// Row 2
-#currency_row-2{
-    .currency_row-2-title{
+/*
+*   Social / Numbers 
+*
+*/ 
+#coin_row-tables{
+    .coin_row-tables-title{
         font-size: 18px;
         font-weight: 700;
         text-transform: uppercase;    
         margin-bottom:12px;
+        
     }    
     #market-basics{
         &.current_row-33{
@@ -411,6 +364,71 @@
         }
     }          
 }
+
+
+
+
+
+
+
+
+
+
+
+// Row 0
+#currency_row-0{
+    .r0-title{
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    #header-1{
+        width:50%;
+        
+    }
+    #header-3{
+        
+        
+        canvas{
+            padding-top:25px;
+            height:125px!important;
+            width:100%!important;
+        }
+    }
+    #header-4{
+        border-right:0;
+    }    
+}
+//  Indicators Row
+#currency_row-numbers{
+    
+    .r_numbers-number{
+        padding: 5px 25px;
+        text-align: right;
+        //width:25%;
+        float:right;
+        .rn_type{
+            font-size: 10px;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 700;
+            
+        }
+        .rn_value{
+            font-size: 16px;
+            color: $color-black;
+        }
+        &.changer{
+            
+            
+            background-color:#f00;
+        }
+    }
+}
+
+
+
 // Row 3
 #currency_row-3{
 

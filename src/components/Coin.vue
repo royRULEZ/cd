@@ -1,11 +1,13 @@
 <template>
     <div id="coin_container">
 
+
         <!-- Breadcrumbs -->
         <div id="coin_breadcrumbs">
             <router-link to="/">Home</router-link><v-icon>chevron_right</v-icon>{{coin_basic[0].symbol}}
         </div>
         <!-- /Breadcrumbs -->
+
 
         <!-- NamePrice -->
         <div class="coin_row-children" id="currency_row-meta">
@@ -26,6 +28,7 @@
         </div>
         <!-- /NamePrice -->
         
+
         <!-- Numbers -->
         <div class="coin_row-children clearfix" id="coin_row-numbers">
             <div class="r_numbers-number">
@@ -61,15 +64,12 @@
         </div>
         <!-- /Numbers -->
         
+
         <!-- Chart -->
         <div class="coin_row-children clearfix" id="coin_row-graph">
             <div class="currency_row-66" id="graph_main">
                 <div class="c_section-title">{{coin_basic[0].symbol}} Social Activity against Price</div>
-                <line-chart :chart-data="GoogleChart_data" :options="{responsive: true, maintainAspectRatio: false, scales:{yAxes:[{gridLines:{display:true},ticks:{suggestedMax:100}}], xAxes:[{display:false}]}}"></line-chart>    
-                <!-- legend: { display: false } -->
-                
-                
-                
+                <line-chart :chart-data="CoinChart_data"></line-chart>
             </div>
             <div class="currency_row-33" id="_feed">
                 <div class="c_section-title">{{coin_basic[0].symbol}} Social Listening</div>
@@ -83,61 +83,36 @@
                         </v-list>
                     </v-menu>
                 </div>
-                <div v-for="post in reddit_titles" :key="feed" class="social_feeds-row">
+                <div v-for="post in reddit_titles" :key="post" class="social_feeds-row">
                     <div class="social_feeds-article">"{{post[0]}}"<span class="social_feeds-article-meta">Score:{{post[1]}}, Comments:{{post[2]}}, <a target="blank" :href="'http://reddit.com'+post[3]">view on Reddit</a></span></div>
                 </div> 
             </div>
         </div>
-        
-        <div class="coin_row-children clearfix"  id="currency_row-0">
-            <div class="currency_row-25" id="header-1">
-                <div class="r0-title">Graph Overlay: Reddit Activity, Twitter Activity Price</div>
-            </div>
-            <div class="currency_row-25" id="header-3">
-                <div class="r0-title">Google Trends: {{coin_basic[0].id}}</div>
-                <!--
-                <line-chart :chart-data="GoogleChart_data" :options="{responsive: true, maintainAspectRatio: false, legend: { display: false }, scales:{yAxes:[{ticks:{suggestedMax:100}}], xAxes:[{display:false}]}}"></line-chart>    
-                -->
-            </div>
-            <div class="currency_row-25" id="header-4">
-                <div class="r0-title">CTA</div>
-            </div>
-        </div>        
+        <!-- Chart -->
 
-        <div class="coin_row-children clearfix" id="currency_row-2">
+        <!-- Social / Numbers -->
+        <div class="coin_row-children clearfix" id="coin_row-tables">
+            
+            <!-- Google Circle -->
             <div class="currency_row-33" id="market-basics">
-                <div class="currency_row-2-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Market Data</div>
-                <div class="market_basics-row">
-                    <span class="market_basics-row-key">Market Cap</span>
-                    <span class="market_basics-row-value">{{coin_basic[0].market_cap_usd | Currency}}</span>
-                </div>          
-                <div class="market_basics-row">
-                    <span class="market_basics-row-key">Volume (24hr)</span>
-                    <span class="market_basics-row-value">{{coin_basic[0]["24h_volume_usd"] | Currency}}</span>
-                </div>
-                <div class="market_basics-row">
-                    <span class="market_basics-row-key">Circulating Supply</span>
-                    <span class="market_basics-row-value">{{coin_basic[0].available_supply | Currency}}</span>
-                </div>
-                <div class="market_basics-row">
-                    <span class="market_basics-row-key">Total Supply</span>
-                    <span class="market_basics-row-value">{{coin_basic[0].total_supply | Currency}}</span>
-                </div>
-                <div class="market_basics-row">
-                    <span class="market_basics-row-key">1 Hour</span>
-                    <span class="market_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">{{coin_basic[0].percent_change_1h}}%</span>
-                </div>
-                <div class="market_basics-row">
-                    <span class="market_basics-row-key">24 Hours</span>
-                    <span class="market_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_24h)}">{{coin_basic[0].percent_change_24h}}%</span>
-                </div>
-                <div class="market_basics-row">
-                    <span class="market_basics-row-key">Week</span>
-                    <span class="market_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_7d)}">{{coin_basic[0].percent_change_7d}}%</span>
-                </div>                                             
+                <div class="coin_row-tables-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Market Data</div>
+
+
+                <doughnut-chart :chart-data="GoogleChart_data" :scalesdisplay="false"></doughnut-chart>  
+                <!-- , legend: { display: false }, scales:{yAxes:[{ticks:{suggestedMax:100}}], xAxes:[{display:false}]}}" -->
+                
+
+
+
             </div>
+
+
+
+            <chartjs-horizontal-bar :data="GoogleChart_data"></chartjs-horizontal-bar>
+
+
             <div class="currency_row-33" id="social-basics">
-                <div class="currency_row-2-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Social Data</div>
+                <div class="coin_row-tables-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Social Data</div>
                 <div class="social_basics-row">
                     <v-menu :nudge-width="100">
                         <v-toolbar-title slot="activator"><span>Reddit</span><v-icon>arrow_drop_down</v-icon></v-toolbar-title>
@@ -174,7 +149,7 @@
                 </div>                                  
             </div>
             <div class="currency_row-33" id="news-basics">
-                <div class="currency_row-2-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> News Data</div>
+                <div class="coin_row-tables-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> News Data</div>
                 <div class="news_basics-row">
                     <v-menu :nudge-width="100">
                         <v-toolbar-title slot="activator"><span>Forbes</span><v-icon>arrow_drop_down</v-icon></v-toolbar-title>
@@ -204,6 +179,23 @@
             </div>
         </div>
 
+
+
+        <div class="coin_row-children clearfix"  id="currency_row-0">
+            <div class="currency_row-25" id="header-1">
+                <div class="r0-title">Graph Overlay: Reddit Activity, Twitter Activity Price</div>
+            </div>
+            <div class="currency_row-25" id="header-3">
+                <div class="r0-title">Google Trends: {{coin_basic[0].id}}</div>
+                
+               
+            </div>
+            <div class="currency_row-25" id="header-4">
+                <div class="r0-title">CTA</div>
+            </div>
+        </div>   
+
+
         <div class="coin_row-children clearfix" id="currency_row-3">
             <div class="currency_row-66" id="social-feeds">   
  
@@ -216,14 +208,17 @@
 
 <script>
 import axios from 'axios';
+import CoinChart from './sub_components/CoinChart';
 import GoogleChart from './sub_components/GoogleChart';
 export default {
     components:{
-        'line-chart': GoogleChart
+        'doughnut-chart': GoogleChart,
+        'line-chart': CoinChart
     },
     name: 'coin',
     data () {
     return {
+            CoinChart_data: null,
             GoogleChart_data: null,
             coin_basic: [{"id":"bitcoin","name":"Bitcoin","symbol":"BTC","rank":"1","price_usd":"14614.3","price_btc":"1.0","24h_volume_usd":"18037700000.0","market_cap_usd":"245445707070","available_supply":"16794900.0","total_supply":"16794900.0","max_supply":"21000000.0","percent_change_1h":"-0.87","percent_change_24h":"1.27","percent_change_7d":"-3.75","last_updated":"1515638061"}], //{"id":"stellar","name":"Stellar","symbol":"XLM","rank":"8","price_usd":"0.718313","price_btc":"0.00004266","a24h_volume_usd":"421381000.0","market_cap_usd":"12841869482.0","available_supply":"17877818558.0","total_supply":"103570548975","max_supply":null,"percent_change_1h":"-2.88","percent_change_24h":"5.13","percent_change_7d":"122.47","last_updated":"1515298743"}
             reddit_data: [],
@@ -268,7 +263,20 @@ export default {
             
         }, 
         getGoogleTrends: function (){
-            
+            axios.get("http://localhost:8005/google-trends/" + this.$route.params.currency)
+            .then(response => {
+                //console.log(response);
+                var google_data = response.data.default.geoMapData;
+                var data_obj = [];
+                var data_labels = [];
+                for(var i = 0; i < 10; i++){
+                    data_obj.push(google_data[i].value[0]);
+                    data_labels.push(google_data[i].geoName);
+                }
+                this.GoogleChart_data = {labels: data_labels,"datasets":[{backgroundColor: ["#FF6384 ", "#36A2EB", "#FFCE56"],"data":data_obj}]};
+            })
+        },   
+        getCoinChart: function(){
             let data_obj = [];
             let data_labels = ["A","A","A","A","A","B","A","A","A","A","C","A","A","A","A","D","A","A","A","A"];
             let data_obj_1 = [];
@@ -281,36 +289,13 @@ export default {
             for(var i = 0; i < 20; i++){
                 data_obj_1.push(Math.random()*((i*5)-i)+(i));
             }
+        
             
-            console.log(data_obj);
-            console.log(data_obj_1);
-            console.log(price_obj);
-            
-            this.GoogleChart_data = {labels: data_labels,"datasets":[{"label": "Reddit", "backgroundColor":"rgba(43,176,165,.6)", "borderColor": "rgba(0,0,0,0)","data":data_obj},{"label": "Twitter","backgroundColor":"rgba(40,95,114,.6)", "borderColor": "rgba(0,0,0,0)", "data":data_obj_1},{"label": "Price", "backgroundColor": "rgba(0,0,0,0)", "borderColor":"#5d25fa","data":price_obj}]};
-            
-            
-            /*
-            
-            //axios.get("http://localhost:8005/google-trends/" + this.$route.params.currency)
-            axios.get("http://52.15.54.43:8005/google-trends/" + this.$route.params.currency)
-            .then(response => {
-                //console.log(response);
-                var google_data = response.data.default.timelineData;
-                var data_obj = [];
-                var data_labels = [];
-                for(var i = 0; i < google_data.length; i++){
-                    if(parseInt(google_data[i].time) > 1420070400){
-                        data_obj.push(google_data[i].value[0]);
-                        data_labels.push(google_data[i].formattedTime);
-                    }
-                }
-                console.log(data_obj);
-                this.GoogleChart_data = {labels: data_labels,"datasets":[{"backgroundColor":"rgba(245,72,40,.5)","data":data_obj}]};
-            })
-            */
-            
-            
-        },    
+            this.CoinChart_data = {labels: data_labels,type: 'horizontalBar',"datasets":[{"label": "Reddit", "backgroundColor":"rgba(43,176,165,.6)", "borderColor": "rgba(0,0,0,0)","data":data_obj},{"label": "Twitter","backgroundColor":"rgba(40,95,114,.6)", "borderColor": "rgba(0,0,0,0)", "data":data_obj_1},{"label": "Price", "backgroundColor": "rgba(0,0,0,0)", "borderColor":"#5d25fa","data":price_obj}]};
+        },
+        getTwitter: function (){
+            // Todo
+        }, 
         numLessThanZero : function(num){
             return parseFloat(num) < 0;
         }
@@ -319,6 +304,8 @@ export default {
         //this.getCoinBasic();
         this.getRedditSearch();
         this.getGoogleTrends();
+        //this.getTwitter();
+        this.getCoinChart();
     },
     created: function() {
         

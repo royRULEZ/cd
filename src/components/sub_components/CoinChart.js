@@ -1,37 +1,32 @@
 
-import { Bar, mixins } from 'vue-chartjs';
-const {reactiveProp} = mixins;
+import { Line, mixins } from 'vue-chartjs';
+const { reactiveProp } = mixins;
 
-
-
-
-  var options = { 
+var options = { 
     responsive: true, 
     maintainAspectRatio: false, 
-    barPercentage: 1,
     scales: { 
         yAxes: [{ 
             gridLines: {
-                display: false 
+                display: true 
             }, 
             ticks: { 
                 suggestedMax: 100 
             } 
         }], 
         xAxes: [{
-            display: true 
+            display: false 
         }] 
     } 
 }
 
 
-  
 
 export default {
-    extends: Bar,
+    extends: Line,
     mixins: [reactiveProp],
     props: ['options'],
-    mounted () {
+    mounted() {
         this.renderChart(this.chartData, options)
     }
 }

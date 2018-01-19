@@ -1,19 +1,42 @@
 <template>
   <v-app>
+
+    <!-- Menu -->
     <v-navigation-drawer
       temporary
       v-model="drawer"
       absolute
     >
-      <v-list class="pa-1">
-        
-      </v-list>
-      <v-list class="pt-0" dense>
-        <v-divider></v-divider>
-        
-      </v-list>
+      <v-toolbar flat>
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-title class="title">
+              Menu
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+      <v-divider></v-divider>
+      <v-list dense class="pt-0">
+        <v-list-tile @click="goHome">
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon>info</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>About</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>        
+      </v-list>      
     </v-navigation-drawer>
-
+    <!-- /Menu -->
 
     <!-- Reddit News -->
     <v-navigation-drawer
@@ -51,12 +74,13 @@
         <div class="social_feeds-article"><a target="blank" :href="'http://reddit.com'+post[3]">"{{post[0]}}"</a><span class="social_feeds-article-meta"> Score:{{post[1]}}, Comments:{{post[2]}}</span></div>
       </div> 
     </v-navigation-drawer>
+    <!-- /Reddit News -->
 
-
+    <!-- Toolbar -->
     <v-toolbar id="toolbar" dark class='elevation-0'>
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-toolbar-title>Crypto Dragnet</v-toolbar-title>
+      <v-toolbar-title @click="goHome">Crypto Dragnet</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="news_drawer = !news_drawer">
         <v-icon>public</v-icon>
@@ -65,6 +89,7 @@
         <v-icon>favorite</v-icon>
       </v-btn>      
     </v-toolbar>
+    <!-- /Toolbar -->
 
   
     <v-content>
@@ -151,6 +176,9 @@ export default {
           }
           this.reddit_sidebar_titles = titles;
       })
+    },
+    goHome: function (){
+      this.$router.push({path: '/',});
     }
   },
   mounted: function () {
