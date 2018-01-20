@@ -49,7 +49,10 @@
         width: 100%;
         border-bottom: 1px solid $color-border;
         display: flex;
-        .currency_row-50{
+        @media only screen and (max-width: 550px) {
+            display: block;
+        }        
+        .coin_row-50{
             padding:20px;
             width:50%;
             float:left;
@@ -58,8 +61,16 @@
             &:last-child{
                 border-right:none;
             }
+            @media only screen and (max-width: 550px) {
+                width:100%;
+                padding: 50px 25px;
+                background-color: $color-white;
+                margin-bottom: 50px;
+                box-sizing: border-box;
+                border: 1px solid $color-border;
+            }
         } 
-        .currency_row-25{
+        .coin_row-25{
             box-sizing: border-box;
             padding:20px;
             width:25%;
@@ -68,20 +79,44 @@
             &:nth-child(4){
                 border-right:none;
             }
+            @media only screen and (max-width: 550px) {
+                width:100%;
+                padding: 50px 25px;
+                background-color: $color-white;
+                margin-bottom: 50px;
+                box-sizing: border-box;
+                border: 1px solid $color-border;
+            }
         }        
-        .currency_row-33{
+        .coin_row-33{
             padding:20px;
             width:33.3333%;
             float:left;
             box-sizing: border-box;
             border-right:1px solid $color-border;
+            @media only screen and (max-width: 550px) {
+                width:100%;
+                padding: 50px 25px;
+                background-color: $color-white;
+                margin-bottom: 50px;
+                box-sizing: border-box;
+                border: 1px solid $color-border;
+            }
         }
-        .currency_row-66{
+        .coin_row-66{
             padding:20px;
             width:66.6666%;
             float:left;
             box-sizing: border-box;
             border-right:1px solid $color-border;
+            @media only screen and (max-width: 550px) {
+                width:100%;
+                padding: 50px 25px;
+                background-color: $color-white;
+                margin-bottom: 50px;
+                box-sizing: border-box;
+                border: 1px solid $color-border;
+            }
         }        
     }    
 }
@@ -91,7 +126,7 @@
 *   Meta Tags
 *
 */
-#currency_row-meta{
+#coin_row-meta{
     #coin_meta{
         border: 0;
         padding: 20px 0;
@@ -168,6 +203,14 @@
         &.changer{
             background-color:#f00;
         }
+        @media only screen and (max-width: 550px) {
+            width:100%;
+            padding: 10px 5px;
+            background-color: $color-white;
+            margin-bottom: 25px;
+            box-sizing: border-box;
+            border: 1px solid $color-border;
+        }
     }
     .r_numbers-changes{
         width: 23%;
@@ -182,6 +225,15 @@
                 font-size: 14px;
                 color: $color-black;
             }
+        }
+        @media only screen and (max-width: 550px) {
+            width:100%;
+            padding: 10px 5px;
+            background-color: $color-white;
+            margin-bottom: 25px;
+            box-sizing: border-box;
+            margin-left: 0;
+            border: 1px solid $color-border;
         }
     }
 }
@@ -255,7 +307,7 @@
 
 
 /*
-*   Social / Numbers 
+*   Tables / Detials
 *
 */ 
 #coin_row-tables{
@@ -265,33 +317,38 @@
         text-transform: uppercase;    
         margin-bottom:12px;
         
-    }    
-    #market-basics{
-        &.current_row-33{
-            &:nth-child(3){
-                border-right:none;
+    }   
+    #geo_lines_container{
+        .geo_lines{
+            width: 100%;
+            height: 30px;
+            padding-left: 10px;
+            line-height: 30px;
+            border-bottom: 1px solid #CCC;
+            font-size: 12px;
+            font-weight: 600;
+            box-sizing: border-box;
+            position: relative;
+            .gl-text{
+                position: relative;
+                z-index: 1;
             }
-        }
-        .market_basics-row{
-            border-bottom:1px solid #D9d9d9;
-            font-weight: 300;
-            padding:10px 0;
-            font-size:14px;
-            &:last-child{
-                border-bottom:0;
-            }
-            .market_basics-row-key{
-                font-weight: 400;
-                text-transform: uppercase;
-            }
-            .market_basics-row-value{
-                float:right;
-                padding-right:10px;
+            .gl-bar{
+                width: 30px;
+                height: 30px;
+                background-color:rgba(43,176,165,.4);
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 0;
             }
         }
     }
+    //Col 2
     #social-basics{
-        .currency_row-2-title{
+        .coin_row-tables-title{
             padding-left:10px;    
         }
         .social_basics-row{
@@ -326,9 +383,10 @@
             }
         }
     }
+    //Col 3
     #news-basics{
         border-right: none;
-        .currency_row-2-title{
+        .coin_row-tables-title{
             padding-left:10px;    
         }
         .news_basics-row{

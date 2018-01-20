@@ -7,7 +7,7 @@
             <!-- <div class="coin_watch" v-for="coin_wl in watchList"> -->
             <div class="coin_watch" v-for="coin_wl in watchList">
                 <div class="cw-coin_info"><router-link to="/coin/XRP">XRP</router-link> <span>(-11.39%)</span></div>
-                <line-chart :chart-data="GoogleChart_data" :options="{responsive: true, maintainAspectRatio: false, legend: { display: false }, scales:{yAxes:[{display:false}], xAxes:[{display:false}]}}"></line-chart>
+                <line-chart :chart-data="WatchListChart_data" :options="{responsive: true, maintainAspectRatio: false, legend: { display: false }, scales:{yAxes:[{display:false}], xAxes:[{display:false}]}}"></line-chart>
             </div>
         </div>
         
@@ -50,46 +50,46 @@
             <table>
                 <tr>
                     <th></th>
-                    <th class="left_align symbol">Symbol</th>
-                    <th class="id left_align">Name</th> <!-- TODO - truncate -->
-                    <th class="usd" @click="sortCoins('price_usd')">$USD</th>
-                    <th @click="sortCoins('24h_volume_usd')">24Hr Volume</th>
-                    <th @click="sortCoins('market_cap_usd')">Market Cap</th>
+                    <th class="left_align symbol phone">Symbol</th>
+                    <th class="id left_align desktop">Name</th> <!-- TODO - truncate -->
+                    <th class="usd phone" @click="sortCoins('price_usd')">$USD</th>
+                    <th class="tablet" @click="sortCoins('24h_volume_usd')">24Hr Volume</th>
+                    <th class="tablet" @click="sortCoins('market_cap_usd')">Market Cap</th>
 
 
-                    <th class="social_title" @click="sortCoins_rs()">Rddt Score</th>
-                    <th class="social_title" @click="sortCoins_ra()">Rddt <v-icon>forum</v-icon></th>
-                    <th class="social_title">Rddt 48hr</th>
-                    <th class="social_title">Twtr <v-icon>forum</v-icon></th>
-                    <th class="social_title">Listen Score</th>
+                    <th class="social_title desktop" @click="sortCoins_rs()">Rddt Score</th>
+                    <th class="social_title desktop" @click="sortCoins_ra()">Rddt <v-icon>forum</v-icon></th>
+                    <th class="social_title desktop">Rddt 48hr</th>
+                    <th class="social_title desktop">Twtr <v-icon>forum</v-icon></th>
+                    <th class="social_title phone">Listen Score</th>
 
-                    <th class="percent_change" @click="sortCoins('hour')">Hour</th>
-                    <th class="percent_change" @click="sortCoins('day')">Day </th>
-                    <th class="percent_change" @click="sortCoins('week')">Week</th>                               
+                    <th class="percent_change phone" @click="sortCoins('hour')">Hour</th>
+                    <th class="percent_change desktop" @click="sortCoins('day')">Day </th>
+                    <th class="percent_change desktop" @click="sortCoins('week')">Week</th>                               
                 </tr>
                 <tr v-for="coin in orderedCoins">
-                    <td class="c_icon"><i :class="`cc ${coin.symbol}`"></i></td>
-                    <td class="symbol left_align" v-ripple>
+                    <td class="c_icon phone"><i :class="`cc ${coin.symbol}`"></i></td>
+                    <td class="symbol left_align phone" v-ripple>
                         <router-link :to="`/coin/${coin.coin_id}`">{{coin.symbol}}</router-link><v-icon class="chevron--right">chevron_right</v-icon></td>
-                    <td class="id left_align">{{coin.coin_id | CharLimit}}</td> 
+                    <td class="id left_align desktop">{{coin.coin_id | CharLimit}}</td> 
 
-                    <td class="usd">{{coin.price_usd | Price}}</td>
-                    <td class="volume">{{coin["24h_volume_usd"] | BigNumber}}<span>M</span></td>                    
-                    <td class="cap">{{coin.market_cap_usd | BigNumber}}<span>M</span></td>
+                    <td class="usd phone">{{coin.price_usd | Price}}</td>
+                    <td class="volume tablet">{{coin["24h_volume_usd"] | BigNumber}}<span>M</span></td>                    
+                    <td class="cap tablet">{{coin.market_cap_usd | BigNumber}}<span>M</span></td>
 
                     
-                    <td class="r_score">
+                    <td class="r_score desktop">
                         {{coin.r_data | RScoreSum}}
                         <div class="circle_no" v-bind:class="{'circle':redditFilter(coin)}"></div>
                     </td>
-                    <td class="r_activity">{{coin.r_data | RCommentSum}}</td>
-                    <td class="r_24hr">00000</td>
-                    <td class="t_activity">00000</td>
-                    <td class="t_24hr">00000</td>
+                    <td class="r_activity desktop">{{coin.r_data | RCommentSum}}</td>
+                    <td class="r_24hr desktop">00000</td>
+                    <td class="t_activity desktop">00000</td>
+                    <td class="t_24hr phone">00000</td>
 
-                    <td class="percent_change hour change_green" v-bind:class="{'change_red':numLessThanZero(coin.hour)}">{{coin.hour}}%</td>
-                    <td class="percent_change change_green" v-bind:class="{'change_red':numLessThanZero(coin.day)}">{{coin.day}}%</td>
-                    <td class="percent_change change_green" v-bind:class="{'change_red':numLessThanZero(coin.week)}">{{coin.week}}%</td> 
+                    <td class="percent_change hour change_green phone" v-bind:class="{'change_red':numLessThanZero(coin.hour)}">{{coin.hour}}%</td>
+                    <td class="percent_change change_green desktop" v-bind:class="{'change_red':numLessThanZero(coin.day)}">{{coin.day}}%</td>
+                    <td class="percent_change change_green desktop" v-bind:class="{'change_red':numLessThanZero(coin.week)}">{{coin.week}}%</td> 
                               
                 </tr>
             </table>
@@ -119,16 +119,16 @@
 
 <script>
 import axios from 'axios';
-import GoogleChart from './sub_components/GoogleChart';
+import WatchListChart from './sub_components/WatchListChart';
 export default {
     components:{
-        'line-chart': GoogleChart
+        'line-chart': WatchListChart
     },
     name: 'main',
     data () {
         return {
             search: '',
-            GoogleChart_data: null,
+            WatchListChart_data: null,
             reverse: false,
             thisJSON: [],
             coinFilter: ['All', 'Top 100'],
@@ -184,7 +184,7 @@ export default {
 
             console.log(data_obj);
 
-            this.GoogleChart_data = {labels: data_labels,"datasets":[{"backgroundColor":"rgba(246,196,46,0)","borderColor":"#f5c42e","borderWidth":2,"pointRadius":1,"data":data_obj}]};  
+            this.WatchListChart_data = {labels: data_labels,"datasets":[{"backgroundColor":"rgba(246,196,46,0)","borderColor":"#f5c42e","borderWidth":2,"pointRadius":1,"data":data_obj}]};  
         }        
     },
     mounted: function(){

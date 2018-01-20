@@ -10,8 +10,8 @@
 
 
         <!-- NamePrice -->
-        <div class="coin_row-children" id="currency_row-meta">
-            <div id="coin_meta" class="currency_row-50">
+        <div class="coin_row-children" id="coin_row-meta">
+            <div id="coin_meta" class="coin_row-50">
                 <div id="name">
                     <span id="name-name">{{coin_basic[0].name}}</span><span id="name-symbol">({{coin_basic[0].symbol}})</span>
                 </div>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             
-            <div id="price" class="currency_row-50">
+            <div id="price" class="coin_row-50">
                 <div id="currency-current_price"><div class="c_eyebrow c-price">Current Price</div>{{coin_basic[0].price_usd | Price}}</div>   
             </div>
         </div>
@@ -67,12 +67,12 @@
 
         <!-- Chart -->
         <div class="coin_row-children clearfix" id="coin_row-graph">
-            <div class="currency_row-66" id="graph_main">
-                <div class="c_section-title">{{coin_basic[0].symbol}} Social Activity against Price</div>
+            <div class="coin_row-66" id="graph_main">
+                <div class="c_section-title">Social Activity against Price</div>
                 <line-chart :chart-data="CoinChart_data"></line-chart>
             </div>
-            <div class="currency_row-33" id="_feed">
-                <div class="c_section-title">{{coin_basic[0].symbol}} Social Listening</div>
+            <div class="coin_row-33" id="_feed">
+                <div class="c_section-title">Social Listening</div>
                 <div class="social_feeds-row">
                     <v-menu :nudge-width="0"  bottom left>
                         <v-toolbar-title slot="activator"><span>Reddit</span><v-icon>arrow_drop_down</v-icon></v-toolbar-title>
@@ -93,26 +93,17 @@
         <!-- Social / Numbers -->
         <div class="coin_row-children clearfix" id="coin_row-tables">
             
-            <!-- Google Circle -->
-            <div class="currency_row-33" id="market-basics">
-                <div class="coin_row-tables-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Market Data</div>
-
-
-                <doughnut-chart :chart-data="GoogleChart_data" :scalesdisplay="false"></doughnut-chart>  
-                <!-- , legend: { display: false }, scales:{yAxes:[{ticks:{suggestedMax:100}}], xAxes:[{display:false}]}}" -->
-                
-
-
-
+            <!-- Google City Search Bar Chart -->
+            <div class="coin_row-33" id="geo_lines_container">
+                <div class="coin_row-tables-title">Global Search by City</div>
+                <div class="geo_lines" v-for="(obj, index) in geo_data">
+                        <div class="gl-text">{{obj.label}}</div>
+                        <div class="gl-bar" v-bind:style="{ width: obj.num + '%' }"></div>
+                </div>
             </div>
 
-
-
-            <chartjs-horizontal-bar :data="GoogleChart_data"></chartjs-horizontal-bar>
-
-
-            <div class="currency_row-33" id="social-basics">
-                <div class="coin_row-tables-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> Social Data</div>
+            <div class="coin_row-33" id="social-basics">
+                <div class="coin_row-tables-title">Social Data</div>
                 <div class="social_basics-row">
                     <v-menu :nudge-width="100">
                         <v-toolbar-title slot="activator"><span>Reddit</span><v-icon>arrow_drop_down</v-icon></v-toolbar-title>
@@ -124,85 +115,43 @@
                     </v-menu>
                 </div>
                 <div class="social_basics-row">
-                    <span class="social_basics-row-key">Avg. Score / Thread</span>
-                    <span class="social_basics-row-value">{{reddit_search.score}}</span>
-                </div>  
-                <div class="social_basics-row">
-                    <span class="social_basics-row-key">Avg. Upvotes / Thread</span>
-                    <span class="social_basics-row-value">{{reddit_search.ups}}</span>
-                </div>
-                <div class="social_basics-row">
-                    <span class="social_basics-row-key">Avg. Comments / Thread</span>
-                    <span class="social_basics-row-value">{{reddit_search.comments}}</span>
-                </div>                                
+                    <span class="social_basics-row-key">TBD</span>
+                    <span class="social_basics-row-value">###</span>
+                </div>                             
                 <div class="social_basics-row">
                     <span class="social_basics-row-key">1 Hour</span>
-                    <span class="social_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">{{coin_basic[0].percent_change_1h}}%</span>
+                    <span class="social_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_1h)}">###</span>
                 </div>
                 <div class="social_basics-row">
                     <span class="social_basics-row-key">24 Hours</span>
-                    <span class="social_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_24h)}">{{coin_basic[0].percent_change_24h}}%</span>
+                    <span class="social_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_24h)}">###</span>
                 </div>
                 <div class="social_basics-row">
                     <span class="social_basics-row-key">Week</span>
-                    <span class="social_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_7d)}">{{coin_basic[0].percent_change_7d}}%</span>
+                    <span class="social_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_7d)}">###</span>
                 </div>                                  
             </div>
-            <div class="currency_row-33" id="news-basics">
-                <div class="coin_row-tables-title"><span class="primary-text">{{coin_basic[0].symbol}}</span> News Data</div>
+            <div class="coin_row-33" id="news-basics">
+                <div class="coin_row-tables-title">Development Data</div>
                 <div class="news_basics-row">
-                    <v-menu :nudge-width="100">
-                        <v-toolbar-title slot="activator"><span>Forbes</span><v-icon>arrow_drop_down</v-icon></v-toolbar-title>
-                        <v-list>
-                        <v-list-tile v-for="item in news_platforms" :key="item" @click="">
-                            <v-list-tile-title v-text="item"></v-list-tile-title>
-                        </v-list-tile>
-                        </v-list>
-                    </v-menu>
-                </div>
-                <div class="news_basics-row">
-                    <span class="news_basics-row-key">Articles in the last Week</span>
-                    <span class="news_basics-row-value">{{reddit_search.score}}</span>
+                    <span class="news_basics-row-key">Source Code Activity</span>
+                    <span class="news_basics-row-value">###</span>
                 </div>  
                 <div class="news_basics-row">
-                    <span class="news_basics-row-key">Avg. Comments / Article</span>
-                    <span class="news_basics-row-value">{{reddit_search.score}}</span>
+                    <span class="news_basics-row-key">Page Rank</span>
+                    <span class="news_basics-row-value">###</span>
                 </div>
                 <div class="news_basics-row">
-                    <span class="news_basics-row-key">24 Hours</span>
-                    <span class="news_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_24h)}">{{coin_basic[0].percent_change_24h}}%</span>
+                    <span class="news_basics-row-key">Founder Tweets / 24 Hours</span>
+                    <span class="news_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_24h)}">###%</span>
                 </div>
                 <div class="news_basics-row">
-                    <span class="news_basics-row-key">Week</span>
-                    <span class="news_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_7d)}">{{coin_basic[0].percent_change_7d}}%</span>
+                    <span class="news_basics-row-key">Founder Tweets / Week</span>
+                    <span class="news_basics-row-value green-text" v-bind:class="{'red-text':numLessThanZero(coin_basic[0].percent_change_7d)}">###%</span>
                 </div>
             </div>
         </div>
 
-
-
-        <div class="coin_row-children clearfix"  id="currency_row-0">
-            <div class="currency_row-25" id="header-1">
-                <div class="r0-title">Graph Overlay: Reddit Activity, Twitter Activity Price</div>
-            </div>
-            <div class="currency_row-25" id="header-3">
-                <div class="r0-title">Google Trends: {{coin_basic[0].id}}</div>
-                
-               
-            </div>
-            <div class="currency_row-25" id="header-4">
-                <div class="r0-title">CTA</div>
-            </div>
-        </div>   
-
-
-        <div class="coin_row-children clearfix" id="currency_row-3">
-            <div class="currency_row-66" id="social-feeds">   
- 
-            </div>
-            <div class="currency_row-33" id="news-feeds">
-            </div>
-        </div>
     </div>
 </template>
 
@@ -226,7 +175,9 @@ export default {
             reddit_titles: [],
             social_platforms: ['Reddit', 'Twitter'],
             news_platforms: ['CNN', 'Forbes', 'MSNBC'],
-            headlines: []
+            headlines: [],
+            geo_data: [],
+            geo_labels: []
         }
     },
     methods:{
@@ -238,7 +189,7 @@ export default {
         },
         getRedditSearch: function (){
             
-            axios.get("https://www.reddit.com/r/cryptocurrency/search.json?q=" + this.$route.params.coin + "&restrict_sr=on&limit=100&sort=hot")
+            axios.get("https://www.reddit.com/r/cryptocurrency/search.json?q=" + this.$route.params.coin + "&restrict_sr=on&limit=100&sort=hot&t=day")
             .then(response => {
                 this.reddit_search = response.data.data;
                 
@@ -263,17 +214,20 @@ export default {
             
         }, 
         getGoogleTrends: function (){
-            axios.get("http://localhost:8005/google-trends/" + this.$route.params.currency)
+            axios.get("http://52.15.54.43:8005/google-trends/" + this.$route.params.coin)
             .then(response => {
                 //console.log(response);
                 var google_data = response.data.default.geoMapData;
                 var data_obj = [];
                 var data_labels = [];
                 for(var i = 0; i < 10; i++){
-                    data_obj.push(google_data[i].value[0]);
-                    data_labels.push(google_data[i].geoName);
+                    //data_obj.push(google_data[i].value[0]);
+                    //data_labels.push(google_data[i].geoName);
+                    data_obj.push({'label':google_data[i].geoName,'num':google_data[i].value[0]});
                 }
-                this.GoogleChart_data = {labels: data_labels,"datasets":[{backgroundColor: ["#FF6384 ", "#36A2EB", "#FFCE56"],"data":data_obj}]};
+                this.geo_data = data_obj;
+                console.log(data_obj);
+                //this.geo_labels = data_labels;
             })
         },   
         getCoinChart: function(){

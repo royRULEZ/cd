@@ -69,7 +69,7 @@
       </v-menu>
 
 
-      <v-divider></v-divider>
+      <v-divider></v-divider> 
       <div v-for="post in reddit_sidebar_titles" class="social_feeds-row">
         <div class="social_feeds-article"><a target="blank" :href="'http://reddit.com'+post[3]">"{{post[0]}}"</a><span class="social_feeds-article-meta"> Score:{{post[1]}}, Comments:{{post[2]}}</span></div>
       </div> 

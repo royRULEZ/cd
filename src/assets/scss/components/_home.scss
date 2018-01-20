@@ -104,7 +104,7 @@
         }        
     }
     table{
-        width:100%;
+        width: 100%;
         tr{
             background-color: $color-table-row;
             width:100%;
@@ -153,7 +153,17 @@
                 i{
                     font-size:14px;
                     color:#000;
-                }                                                     
+                }     
+                @media only screen and (max-width: 480px) {
+                    &.tablet{
+                        display:none;
+                    }
+                }    
+                @media only screen and (max-width: 900px) {
+                    &.desktop{
+                        display:none;
+                    }
+                }                                                              
             }
             td{
                 border-bottom: 1px solid $color-table-border;
@@ -280,7 +290,16 @@
                 &.bg_red{
                     background-color: rgba(255,0,0,.1);
                 }
-                         
+                @media only screen and (max-width: 480px) {
+                    &.tablet{
+                        display:none;
+                    }
+                }    
+                @media only screen and (max-width: 900px) {
+                    &.desktop{
+                        display:none;
+                    }
+                }         
             }
         }
     }
