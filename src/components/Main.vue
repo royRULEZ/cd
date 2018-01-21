@@ -69,27 +69,30 @@
                 </tr>
                 <tr v-for="coin in orderedCoins">
                     <td class="c_icon phone"><i :class="`cc ${coin.symbol}`"></i></td>
+                    
                     <td class="symbol left_align phone" v-ripple>
-                        <router-link :to="`/coin/${coin.coin_id}`">{{coin.symbol}}</router-link><v-icon class="chevron--right">chevron_right</v-icon></td>
-                    <td class="id left_align desktop">{{coin.coin_id | CharLimit}}</td> 
-
+                        <router-link :to="`/coin/${coin.name}`">{{coin.symbol}}</router-link><v-icon class="chevron--right">chevron_right</v-icon></td>
+                    <td class="id left_align desktop">{{coin.name | CharLimit}}</td> 
+                    
                     <td class="usd phone">{{coin.price_usd | Price}}</td>
-                    <td class="volume tablet">{{coin["24h_volume_usd"] | BigNumber}}<span>M</span></td>                    
+                    <td class="volume tablet">{{coin["24h_vol_usd"] | BigNumber}}<span>M</span></td>                    
                     <td class="cap tablet">{{coin.market_cap_usd | BigNumber}}<span>M</span></td>
 
                     
-                    <td class="r_score desktop">
+                    <td class="r_score desktop">0000
+                        <!--
                         {{coin.r_data | RScoreSum}}
                         <div class="circle_no" v-bind:class="{'circle':redditFilter(coin)}"></div>
+                        -->
                     </td>
-                    <td class="r_activity desktop">{{coin.r_data | RCommentSum}}</td>
+                    <td class="r_activity desktop">00000<!--{{coin.r_data | RCommentSum}}--></td>
                     <td class="r_24hr desktop">00000</td>
                     <td class="t_activity desktop">00000</td>
                     <td class="t_24hr phone">00000</td>
-
-                    <td class="percent_change hour change_green phone" v-bind:class="{'change_red':numLessThanZero(coin.hour)}">{{coin.hour}}%</td>
-                    <td class="percent_change change_green desktop" v-bind:class="{'change_red':numLessThanZero(coin.day)}">{{coin.day}}%</td>
-                    <td class="percent_change change_green desktop" v-bind:class="{'change_red':numLessThanZero(coin.week)}">{{coin.week}}%</td> 
+                    
+                    <td class="percent_change hour change_green phone" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_1h)}">{{coin.percent_change_1h}}%</td>
+                    <td class="percent_change change_green desktop" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_24h)}">{{coin.percent_change_24h}}%</td>
+                    <td class="percent_change change_green desktop" v-bind:class="{'change_red':numLessThanZero(coin.percent_change_7d)}">{{coin.percent_change_7d}}%</td> 
                               
                 </tr>
             </table>
@@ -130,14 +133,17 @@ export default {
             search: '',
             WatchListChart_data: null,
             reverse: false,
-            thisJSON: [],
             coinFilter: ['All', 'Top 100'],
-            watchList: []
+            watchList: [],
+            tableData: []
         }
     },
     methods:{
         getTableData: function(){
-            axios.get("http://52.15.54.43:8005/table-data").then(response => {this.thisJSON = response.data})
+            axios.get("http://75.140.65.11/api/homepage/list?offset=0")
+            .then(response => {
+                this.tableData = response.data.payload.data;
+            })
         },
         getWatchList: function(){
             axios.get("http://52.15.54.43:8005/watch-list")
@@ -173,22 +179,16 @@ export default {
             }            
         },
         getGoogleTrends: function (){
-            
             let data_obj = [];
             let data_labels = data_obj;
-
             for(var i = 0; i < 10; i++){
                 data_obj.push(Math.random()*((i*10)-i)+(i));
                 data_labels.push(Math.random()*((i*10)-i)+i);
             }
-
-            console.log(data_obj);
-
             this.WatchListChart_data = {labels: data_labels,"datasets":[{"backgroundColor":"rgba(246,196,46,0)","borderColor":"#f5c42e","borderWidth":2,"pointRadius":1,"data":data_obj}]};  
         }        
     },
     mounted: function(){
-        //this.getData();
         this.getTableData();
         this.getWatchList();
         this.getGoogleTrends();
@@ -196,9 +196,9 @@ export default {
     computed: {
         orderedCoins: function(){
             var self = this;
-            return this.thisJSON.filter(function(coin){
+            return this.tableData.filter(function(coin){
                 let found = false;
-                if(coin.coin_id.toLowerCase().indexOf(self.search.toLowerCase())>=0 || coin.symbol.toLowerCase().indexOf(self.search.toLowerCase())>=0){
+                if(coin.name.toLowerCase().indexOf(self.search.toLowerCase())>=0 || coin.symbol.toLowerCase().indexOf(self.search.toLowerCase())>=0){
                     return true;
                 }
             });
@@ -236,18 +236,19 @@ export default {
     }
 }
 
+/* Extra Functions
+*
+*/
+
 var formatter = new Intl.NumberFormat('en-US', {
   //style: 'currency',
   //currency: 'USD',
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
-
 });
-
 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>
